@@ -106,7 +106,6 @@ set statusline="%1* %-10t %2* owner:%u:%-7g %5* size:%s %N %3* attr:%A %4* %20d 
 mark h ~/
 mark d ~/Downloads
 mark N ~/.config/nvim/
-mark P ~/Python/Projects/python_fundamentals/
 " ------------------------------------------------------------------------------
 
 " :com[mand][!] command_name action
@@ -343,3 +342,4 @@ nnoremap <f6> :move<cr>
 nnoremap <f7> :mkdir<space>
 nnoremap <f8> :delete<cr>
 
+source ~/.config/vifm/favicons.vifm
