@@ -12,6 +12,8 @@ alias la='lsd -A'
 alias ls='lsd -al'
 
 alias vim='nvim'
+alias git-bare='git --git-dir=$HOME/repos/bare/ --work-tree=$HOME'
+
 #################################################################################################### CUSTOM ALIASES #####################################################################################################
 
 alias grep='grep --color=auto'
