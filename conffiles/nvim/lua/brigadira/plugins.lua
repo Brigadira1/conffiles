@@ -84,7 +84,6 @@ return require('packer').startup({
             end,}
 
         use {'nvim-treesitter/nvim-treesitter',
-            run = ":TSUpdate",
             config = function()
                 require('brigadira.plugins.treesitter')
             end,}
