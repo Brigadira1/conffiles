@@ -22,6 +22,10 @@ PS1='[\u@\h \W]\$ '
 export EDITOR=nvim
 export XDG_CONFIG_HOME=/home/brigadira/.config
 export PATH="$XDG_CONFIG_HOME:$PATH"
+
+# This env variable is needed for the qt5ct tool to work correctly
+export QT_QPA_PLATFORMTHEME=qt5ct
+
 # The color scripts of Derek Taylor
 colorscript random
 # Starship command prompt
