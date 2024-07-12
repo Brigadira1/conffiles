@@ -40,7 +40,8 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  unset f
 fi
 
-nitrogen --restore &
+nitrogen --restore --set-zoom-fill &
 setxkbmap -model pc104 -layout us,bg -variant ,phonetic -option grp:win_space_toggle &
 xrandr --dpi 109 &
+picom -f &
 exec qtile start
