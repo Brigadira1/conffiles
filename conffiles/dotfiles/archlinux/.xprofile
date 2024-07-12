@@ -1,3 +1,6 @@
+# This file is sources regardless which Display Manager you are using (LighDM, SDDM)
+# All of these programs are executed before the Xorg session is started
+
 nitrogen --restore --set-zoom-fill &
 setxkbmap -model pc104 -layout us,bg -variant ,phonetic -option grp:win_space_toggle &
 picom --config /home/brigadira/.config/picom/picom.conf -f &
