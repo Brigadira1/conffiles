@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# This file is used when starting an Xorg session with startx
+# Additionally if this file exists XRDP session is using it
+
 userresources=$HOME/.Xresources
 usermodmap=$HOME/.Xmodmap
 sysresources=/etc/X11/xinit/.Xresources
