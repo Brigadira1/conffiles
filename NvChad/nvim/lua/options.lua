@@ -2,16 +2,8 @@ require "nvchad.options"
 
 -- add yours here!
 
-local g = vim.g
 local o = vim.o
 
--- cmd('syntax on')
--- vim.api.nvim_command('filetype plugin indent on')
-
--- mostly just for cmp
--- o.completeopt = { "menuone", "noselect" }
--- so that `` is visible in markdown files
-o.conceallevel = 0
 -- pop up menu height
 o.pumheight = 10
 o.termguicolors = true
@@ -33,22 +25,32 @@ o.sidescrolloff = 10
 -- the font used in graphical neovim applications
 -- o.guifont = "monospace:h17"
 -- Better editor UI
+o.number = true
 o.numberwidth = 5
 o.relativenumber = true
 o.signcolumn = 'yes:2'
 o.cmdheight = 3
+-- o.colorcolumn = '80'
 
+-- Better editing experience
+o.expandtab = true
 -- o.smarttab = true
 o.cindent = true
 -- o.autoindent = true
-
-o.wrap = false
+o.wrap = true
 o.textwidth = 300
 o.tabstop = 4
 o.shiftwidth = 4
 o.softtabstop = 4 -- If negative, shiftwidth value is used
 o.list = true
 o.listchars = 'trail:·,nbsp:◇,tab:→ ,extends:▸,precedes:◂'
+
+-- Case insensitive searching UNLESS /C or capital in search
+o.ignorecase = true
+o.smartcase = true
+-- make indenting smarter again
+o.smartindent = true
+
 
 -- Undo and backup options
 o.backup = false
