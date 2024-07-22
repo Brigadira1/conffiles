@@ -15,10 +15,23 @@ install_pacman_packages() {
 install_yay_packages() {
   AUR_PACKAGES+="brave-bin xorg-xdpyinfo xorgxrdp-nvidia papirus-icon-theme-gi qtile-extras nomachine pavucontrol qt5ctarchlinux-tweak-tool-git xorgxrdp-nvidia"
 
+  install_yay
   echo "Executing yay with a preconfigured list of packages...."
   yay -S $AUR_PACKAGES $INSTALLER_OPTIONS
 }
 
+install_yay() {
+    sudo pacman -Syu $INSTALLER_OPTIONS
+    sudo pacman -S curl $INSTALLER_OPTIONS 
+    mkdir -p ~/repos/yay
+    cd ~/repos/yay
+
+    curl -OJ 'https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=yay'
+    makepkg si
+    cd
+    rm -rf ~/repos/yay
+    echo "yay versions is: $(yay --version)"
+}
 configure_services() {
 
   echo "Enabling sshd service..."
