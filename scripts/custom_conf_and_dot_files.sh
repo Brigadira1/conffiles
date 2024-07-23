@@ -1,3 +1,3 @@
-#/bin/bash
+#!/sbin/bash
 
 echo "Configuring ./config directory ...."
