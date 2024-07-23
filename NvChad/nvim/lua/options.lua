@@ -13,7 +13,6 @@ o.background = 'dark'
 
 -- Do not save when switching buffers
 -- o.hidden = true
-
 -- Decrease update time
 o.timeoutlen = 500
 o.updatetime = 200
@@ -60,7 +59,7 @@ o.swapfile = false
 -- o.backupdir = '/tmp/'
 -- o.directory = '/tmp/'
 -- o.undodir = '/tmp/'
-
+vim.api.nvim_set_option("clipboard", "unnamed")
 -- Remember 50 items in commandline history
 o.history = 50
 
@@ -80,16 +79,15 @@ vim.opt.diffopt:append('linematch:60')
 -- Smooth scrolling
 o.smoothscroll = true
 
-
--- o.fillchars = "vert:|"
--- WARN: this won't update the search count after pressing `n` or `N`
--- When running macros and regexes on a large file, lazy redraw tells neovim/vim not to draw the screen
--- o.lazyredraw = true
-
--- Better folds (don't fold by default)
--- o.foldmethod = 'indent'
--- o.foldlevelstart = 99
--- o.foldnestmax = 3
--- o.foldminlines = 1
--- local o = vim.o
--- o.cursorlineopt ='both' -- to enable cursorline!
+vim.g.clipboard = {
+    name = 'xclip',
+    copy = {
+        ['+'] = 'xclip -selection clipboard',
+        ['*'] = 'xclip -selection clipboard',
+    },
+    paste = {
+        ['+'] = 'xclip -selection clipboard -o',
+        ['*'] = 'xclip -selection clipboard -o',
+    },
+    cache_enabled = 1,
+}
