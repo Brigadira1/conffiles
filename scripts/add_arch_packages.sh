@@ -1,4 +1,4 @@
-#!/sbin/bash
+#!/usr/bin/env bash
 
 set +e
 PACKAGES="" 

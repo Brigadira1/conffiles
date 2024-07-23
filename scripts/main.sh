@@ -1,4 +1,4 @@
-#!/sbin/bash
+#!/usr/bin/env bash
 
 ARCH_PACKAGES_SCRIPT=add_arch_packages.sh
 CUSTOM_CONF_SCRIPT=custom_conf_and_dot_files.sh
