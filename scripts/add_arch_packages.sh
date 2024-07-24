@@ -8,14 +8,14 @@ INSTALLER_OPTIONS=" --needed --noconfirm"
 
 install_pacman_packages() {
 
-  PACKAGES+="base-devel qemu-guest-agent git lshw openssh lxappearance arc-gtk-theme wget curl rsync neovim xclip gzip zip unzip libx11 libxft harfbuzz libxinerama cups hplip ntp nfs-utils cifs-utils htop net-tools vifm plocate bash-completion lsd alacritty starship xorg-xrandr python python-pip python-psutil network-manager-applet reflector tree less rofi picom nitrogen hwinfo glibc linux-headers alsa-utils pipewire-alsa pipewire-pulse pipewire-jack"
+  PACKAGES+="base-devel qemu-guest-agent git lshw openssh lxappearance arc-gtk-theme wget curl rsync neovim xclip gzip zip unzip libx11 libxft harfbuzz libxinerama cups hplip nfs-utils cifs-utils htop net-tools vifm plocate bash-completion lsd alacritty starship xorg-xrandr python python-pip python-psutil network-manager-applet reflector tree less rofi picom nitrogen hwinfo glibc linux-headers alsa-utils pipewire-alsa pipewire-pulse pipewire-jack"
 
   echo "Executing pacman with a preconfigured list of packages...."
   sudo pacman -S $PACKAGES $INSTALLER_OPTIONS
 }
 
 install_yay_packages() {
-  AUR_PACKAGES+="brave-bin xorg-xdpyinfo xorgxrdp-nvidia papirus-icon-theme-git qtile-extras nomachine pavucontrol qt5ctarchlinux-tweak-tool-git xorgxrdp-nvidia pipewire-module-xrdp-git"
+  AUR_PACKAGES+="brave-bin xorg-xdpyinfo xorgxrdp-nvidia papirus-icon-theme-git qtile-extras nomachine pavucontrol qt5ctarchlinux-tweak-tool-git xorgxrdp-nvidia pipewire-module-xrdp-git shell-color-scripts-git"
 
   install_yay
   echo "Executing yay with a preconfigured list of packages...."
@@ -55,9 +55,6 @@ configure_services() {
 
   echo "Enabling printer service..."
   sudo systemctl enable --now cups.service
-
-  # echo "Enabling time sync service..."
-  # sudo systemctl enable --now ntpd
 
   echo "Enabling NoMachine service..."
   sudo systemctl enable --now nxserver.service
