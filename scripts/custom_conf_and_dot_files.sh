@@ -5,6 +5,7 @@ echo "Configuring ./config directory ...."
 CURRENT_DIR=$HOME/repos/conffiles/scripts/
 CURRENT_CONFIG_DIR=$HOME/test_config
 CONFIG_DIR_APPS="alacritty nvim rofi vifm picom qtile starship"
+IS_BACKUP_TAKEN=false
 
 configure_apps_dir() {
 
@@ -18,14 +19,16 @@ backup_app_config() {
 
     local app_folder=$1
 
-    if [ ! -d $CURRENT_CONFIG_DIR/backup ];
+    if [ ! -d $CURRENT_CONFIG_DIR/backup ]; then
         echo "Backup directory doesn't exist ..."
         echo "Creating backup directory in $CURRENT_CONFIG_DIR/backup ..."
         mkdir -p "$CURRENT_CONFIG_DIR/backup"
     fi
-
-    echo "Backing up $CURRENT_CONFIG_DIR/$app_folder ..."
-    cp -rf "$CURRENT_CONFIG_DIR/$app_folder" "$CURRENT_CONFIG_DIR/backup"
+    
+    if [ -d $CURRENT_CONFIG_DIR/$app_folder ]; then
+        echo "Backing up $CURRENT_CONFIG_DIR/$app_folder ..."
+        cp -rf "$CURRENT_CONFIG_DIR/$app_folder" "$CURRENT_CONFIG_DIR/backup"
+    fi
 
 }
 
@@ -33,10 +36,12 @@ backup_app_config() {
 delete_old_config() {
 
     local app_folder=$1
-    backup_apps_configs $app_folder
-
-    echo "Deleting $CURRENT_CONFIG_DIR/$app_folder ..."
-    rm -rf $CURRENT_CONFIG_DIR/$app_folder
+    backup_app_config $app_folder
+    
+    if [ -d $CURRENT_CONFIG_DIR/$app_folder ]; then
+        echo "Deleting $CURRENT_CONFIG_DIR/$app_folder ..."
+        rm -rf $CURRENT_CONFIG_DIR/$app_folder
+    fi
 
 }
 
@@ -45,7 +50,11 @@ copy_new_config() {
     local app_folder=$1
 
     delete_old_config app_folder
-    cp -rf "../$CURRENT_DIR/$app_folder" "$CURRENT_CONFIG_DIR/$app_folder"
+    (
+        cd ..
+        echo "Copying from $(pwd)/$app_folder to $CURRENT_CONFIG_DIR"
+        cp -rf "./$app_folder" "$CURRENT_CONFIG_DIR"
+    )
 
 }
 
