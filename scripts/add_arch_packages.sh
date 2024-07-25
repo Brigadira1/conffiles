@@ -2,30 +2,89 @@
 
 set +e
 PACKAGES="" 
-AUR_PACKAGES=""
 INSTALLER_OPTIONS=" --needed --noconfirm" 
 
 
-install_pacman_packages() {
+initialize_packages() {
 
-  PACKAGES+="base-devel qemu-guest-agent git lshw openssh lxappearance arc-gtk-theme wget curl rsync neovim xclip gzip zip unzip libx11 libxft harfbuzz libxinerama cups hplip nfs-utils cifs-utils htop net-tools vifm plocate bash-completion lsd alacritty starship xorg-xrandr python python-pip python-psutil network-manager-applet reflector tree less rofi picom nitrogen hwinfo glibc linux-headers alsa-utils pipewire-alsa pipewire-pulse pipewire-jack"
+    local base_packages="base-devel glibc linux-headers"
+    local xorg_packages=" libx11 xorg-xrandr xorg-xinit xorg-xdpyinfo xrdp xorgxrdp xorgxrdp-nvidia"
+    local tools_packages=" qemu-guest-agent git lshw openssh openvpn pavucontrol plocate wget curl rsync nfs-utils cifs-utils htop net-tools tree less hwinfo qt5ctarchlinux-tweak-tool-git"
+    local themes_packages=" lxappearance arc-gtk-theme papirus-icon-theme-git"
+    local shell_packages=" bash-completion lsd alacritty starship shell-color-scripts-git"
+    local compress_packages=" gzip zip unzip"
+    local helper_packages=" libxft harfbuzz libxinerama network-manager-applet reflector"
+    local printer_packages=" cups hplip"
+    local piperwire_packages=" alsa-utils pipewire pipewire-alsa pipewire-jack pipewire-pulse pipewire-module-xrdp-git sof-firmware"
+    local python_packages=" python python-pip python-psutil"
+    local neovim_packages=" neovim xclip"
+    local core_packages=" vifm rofi picom nitrogen brave-bin nomachine"
+    local qtile_packages=" qtile qtile-extras"
+    local nvidia_packages=" nvidia nvidia-utils nvidia-settings nvtop"
 
-  echo "Executing pacman with a preconfigured list of packages...."
-  sudo pacman -S $PACKAGES $INSTALLER_OPTIONS
+    PACKAGES+=$base_packages
+    PACKAGES+=$xorg_packages
+    PACKAGES+=$tools_packages
+    PACKAGES+=$themes_packages
+    PACKAGES+=$shell_packages
+    PACKAGES+=$compress_packages
+    PACKAGES+=$helper_packages
+    PACKAGES+=$printer_packages
+    PACKAGES+=$piperwire_packages
+    PACKAGES+=$python_packages
+    PACKAGES+=$neovim_packages
+    PACKAGES+=$core_packages
+    PACKAGES+=$qtile_packages
+    PACKAGES+=$nvidia_packages
+
+    echo "All the packages were assembled: $PACKAGES"
 }
 
-install_yay_packages() {
-  AUR_PACKAGES+="brave-bin xorg-xdpyinfo xorgxrdp-nvidia papirus-icon-theme-git qtile-extras nomachine pavucontrol qt5ctarchlinux-tweak-tool-git xorgxrdp-nvidia pipewire-module-xrdp-git shell-color-scripts-git"
+install_all_packages() {
 
-  install_yay
-  echo "Executing yay with a preconfigured list of packages...."
-  yay -S $AUR_PACKAGES $INSTALLER_OPTIONS
+    if [ -z "$PACKAGES" ]; then
+        echo "The packages list is empty: PACKAGES=$PACKAGES"
+        exit 1
+    fi
+    
+    for s_package in $PACKAGES; do
+        install_single_package "$s_package"
+    done
+}
+
+install_single_package() {
+
+    local package=$1
+
+    if is_official_package $package; then
+        echo "Installing $package with pacman"
+        sudo pacman -S $INSTALLER_OPTIONS $package
+    else
+        if ! command -v yay &> /dev/null; then
+            install_yay
+        echo "Installing $package with yay"
+        yay -S $INSTALLER_OPTIONS $package
+        fi
+    fi
+}
+
+is_official_package() {
+
+    local package_name="$1"
+
+    if pacman -Si $package_name &> /dev/null; then
+        return 0
+    else
+        return 1
+    fi
+
 }
 
 install_yay() {
+
     # Install base-devel and git if not already installed
     echo "Installing base-devel and git..."
-    sudo pacman -S base-devel git $INSTALLER_OPTIONS 
+    sudo pacman -S base-devel git $INSTALLER_OPTIONS :
 
     # Create a temporary directory
     temp_dir=$(mktemp -d)
@@ -44,37 +103,46 @@ install_yay() {
     rm -rf "$temp_dir"
 
     echo "yay has been installed successfully!"
+
 }
+
 configure_services() {
 
-  echo "Enabling sshd service..."
-  sudo systemctl enable --now sshd
+    echo "Enabling sshd service..."
+    sudo systemctl enable --now sshd
 
-  echo "Enabling xrdp service..."
-  sudo systemctl enable --now xrdp
+    echo "Enabling xrdp service..."
+    sudo systemctl enable --now xrdp
 
-  echo "Enabling printer service..."
-  sudo systemctl enable --now cups.service
+    echo "Enabling printer service..."
+    sudo systemctl enable --now cups.service
 
-  echo "Enabling NoMachine service..."
-  sudo systemctl enable --now nxserver.service
+    echo "Enabling NoMachine service..."
+    sudo systemctl enable --now nxserver.service
 
-  echo "Enabling Pipewire services..."
-  sudo systemctl --user --now enable pipewire pipewire-pulse wireplumber
+    echo "Enabling Pipewire services..."
+    sudo systemctl --user --now enable pipewire pipewire-pulse wireplumber
  
-  echo "Adding Bulgaria as the location for the mirror list of repositories..."
-  sudo reflector --country Bulgaria --age 6 --sort rate --save /etc/pacman.d/mirrorlist
-  echo "Enabling the reflector service..."
-  sudo systemctl enable --now reflector.timer
 }
+
 install_hack_nerd() {
+
     echo "Starting installation of Hack Nerd font family..."
     sudo pacman -S $INSTALLER_OPTIONS ttf-hack-nerd
     fc-cache -v 
+
 }
 
-install_pacman_packages
-install_yay_packages
+configure_reflector() {
+
+    echo "Adding Bulgaria as the location for the mirror list of repositories..."
+    sudo reflector --country Bulgaria --age 6 --sort rate --save /etc/pacman.d/mirrorlist
+    echo "Enabling the reflector service..."
+    sudo systemctl enable --now reflector.timer
+
+}
+initialize_packages
+install_all_packages
 configure_services
 install_hack_nerd
 cd "${CURRENT_DIR}"

@@ -8,7 +8,7 @@ CURRENT_CONFIG_DIR=test_config
 configure_config_dir() {
 
     delete_old_configs
-    copy_new_configs
+    # copy_new_configs
 
 }
 
