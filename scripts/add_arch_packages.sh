@@ -62,9 +62,9 @@ install_single_package() {
     else
         if ! command -v yay &> /dev/null; then
             install_yay
+        fi
         echo "Installing $package with yay"
         yay -S $INSTALLER_OPTIONS $package
-        fi
     fi
 }
 
