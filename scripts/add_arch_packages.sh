@@ -121,7 +121,7 @@ configure_services() {
     sudo systemctl enable --now nxserver.service
 
     echo "Enabling Pipewire services..."
-    sudo systemctl --user --now enable pipewire pipewire-pulse wireplumber
+    systemctl --user --now enable pipewire pipewire-pulse wireplumber
  
 }
 

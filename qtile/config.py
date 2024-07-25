@@ -5,6 +5,7 @@
 # | |_| || |  | || |___| |___  | |__| (_) | | | |  _| | (_| |
 #  \__\_\|_| |___|_____|_____|  \____\___/|_| |_|_| |_|\__, |
 #                                                      |___/ 
+# Executable flags except for the user were removed.
 
 import os
 import re
