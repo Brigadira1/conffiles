@@ -3,64 +3,68 @@
 echo "Configuring ./config directory ...."
 
 CURRENT_DIR=$HOME/repos/conffiles/scripts/
-CURRENT_CONFIG_DIR=test_config
+CURRENT_CONFIG_DIR=$HOME/test_config
+CONFIG_DIR_APPS="alacritty nvim rofi vifm picom qtile starship"
 
-configure_config_dir() {
+configure_apps_dir() {
 
-    delete_old_configs
-    # copy_new_configs
+    handle_app_configs backup
+    handle_app_configs delete
+    handle_app_configs copy
 
 }
 
-delete_old_configs() {
+backup_app_config() {
 
-    echo "Deleting $HOME/$CURRENT_CONFIG_DIR/alacritty/ directory"
-    rm -rf "$HOME/$CURRENT_CONFIG_DIR/alacritty/"
+    local app_folder=$1
 
-    echo "Deleting $HOME/$CURRENT_CONFIG_DIR/nvim/ directory"
-    rm -rf "$HOME/$CURRENT_CONFIG_DIR/nvim/"
+    if [ ! -d $CURRENT_CONFIG_DIR/backup ];
+        echo "Backup directory doesn't exist ..."
+        echo "Creating backup directory in $CURRENT_CONFIG_DIR/backup ..."
+        mkdir -p "$CURRENT_CONFIG_DIR/backup"
+    fi
 
-    echo "Deleting $HOME/$CURRENT_CONFIG_DIR/rofi/ directory"
-    rm -rf "$HOME/$CURRENT_CONFIG_DIR/rofi/"
+    echo "Backing up $CURRENT_CONFIG_DIR/$app_folder ..."
+    cp -rf "$CURRENT_CONFIG_DIR/$app_folder" "$CURRENT_CONFIG_DIR/backup"
 
-    echo "Deleting $HOME/$CURRENT_CONFIG_DIR/vifm/ directory"
-    rm -rf "$HOME/$CURRENT_CONFIG_DIR/vifm/"
-
-    echo "Deleting $HOME/$CURRENT_CONFIG_DIR/picom/ directory"
-    rm -rf "$HOME/$CURRENT_CONFIG_DIR/picom"
-
-    echo "Deleting $HOME/$CURRENT_CONFIG_DIR/qtile/ directory"
-    rm -rf "$HOME/$CURRENT_CONFIG_DIR/qtile"
-
-    echo "Deleting $HOME/$CURRENT_CONFIG_DIR/starship/ directory"
-    rm -rf "$HOME/$CURRENT_CONFIG_DIR/starship"
 }
 
-copy_new_configs() {
 
-    cd ..
+delete_old_config() {
 
-    echo "The new working directory is $(pwd)"
+    local app_folder=$1
+    backup_apps_configs $app_folder
 
-    echo "Copying $(pwd)/alacritty to $HOME/$CURRENT_CONFIG_DIR/alacritty/"
-    cp -rf ./alacritty "$HOME/$CURRENT_CONFIG_DIR/"
+    echo "Deleting $CURRENT_CONFIG_DIR/$app_folder ..."
+    rm -rf $CURRENT_CONFIG_DIR/$app_folder
 
-    echo "Copying $(pwd)/NvChad to $HOME/$CURRENT_CONFIG_DIR/nvim"
-    cp -rf ./NvChad/nvim "$HOME/$CURRENT_CONFIG_DIR/"
-
-    echo "Copying $(pwd)/rofi to $HOME/$CURRENT_CONFIG_DIR/rofi/"
-    cp -rf ./rofi "$HOME/$CURRENT_CONFIG_DIR/"
-
-    echo "Copying $(pwd)/vifm to $HOME/$CURRENT_CONFIG_DIR/vifm"
-    cp -rf ./vifm "$HOME/$CURRENT_CONFIG_DIR/"
-
-    echo "Copying $(pwd)/picom to $HOME/$CURRENT_CONFIG_DIR/picom"
-    cp -rf ./picom "$HOME/$CURRENT_CONFIG_DIR/"
-
-    echo "Copying $(pwd)/qtile to $HOME/$CURRENT_CONFIG_DIR/qtile"
-    cp -rf ./qtile "$HOME/$CURRENT_CONFIG_DIR/"
-
-    echo "Copying $(pwd)/starship to $HOME/$CURRENT_CONFIG_DIR/starship"
-    cp -rf ./starship "$HOME/$CURRENT_CONFIG_DIR/"
 }
-configure_config_dir
+
+copy_new_config() {
+
+    local app_folder=$1
+
+    delete_old_config app_folder
+    cp -rf "../$CURRENT_DIR/$app_folder" "$CURRENT_CONFIG_DIR/$app_folder"
+
+}
+
+handle_app_configs() {
+
+    local action="$1"
+    for app in $CONFIG_DIR_APPS; do
+        if [[ $action == "backup" ]]; then
+            backup_app_config $app
+        elif [[ $action == "delete" ]]; then
+            delete_old_config $app
+        elif [[ $action == "copy" ]]; then
+            copy_new_config $app
+        else
+            echo "The only possible actions are: backup, delete or copy"
+            echo "You've specified invalid action: $action "
+        fi
+    done
+            
+}
+
+configure_apps_dir

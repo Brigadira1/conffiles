@@ -87,6 +87,7 @@ install_yay() {
     sudo pacman -S base-devel git $INSTALLER_OPTIONS :
 
     # Create a temporary directory
+    (
     temp_dir=$(mktemp -d)
     cd "$temp_dir"
 
@@ -103,6 +104,7 @@ install_yay() {
     rm -rf "$temp_dir"
 
     echo "yay has been installed successfully!"
+    )
 
 }
 
@@ -145,4 +147,3 @@ initialize_packages
 install_all_packages
 configure_services
 install_hack_nerd
-cd "${CURRENT_DIR}"
