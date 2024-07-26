@@ -76,4 +76,11 @@ handle_app_configs() {
     IS_BACKUP_TAKEN=true
 }
 
+handle_starship_conf() {
+
+    cp -rf "$CURRENT_CONFIG_DIR/starship/starship.toml" "$CURRENT_CONFIG_DIR/"
+
+}
+
 configure_apps_dir
+handle_starship_conf
