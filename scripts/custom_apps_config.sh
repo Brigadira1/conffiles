@@ -78,6 +78,7 @@ handle_app_configs() {
 
 handle_starship_conf() {
 
+    echo "Coping $CURRENT_CONFIG_DIR/starship/starship.toml into $CURRENT_CONFIG_DIR"
     cp -rf "$CURRENT_CONFIG_DIR/starship/starship.toml" "$CURRENT_CONFIG_DIR/"
 
 }
