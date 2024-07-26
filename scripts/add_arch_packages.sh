@@ -138,7 +138,7 @@ install_hack_nerd() {
 configure_reflector() {
 
     echo "Adding Bulgaria as the location for the mirror list of repositories..."
-    sudo reflector --country Bulgaria --age 6 --sort rate --save /etc/pacman.d/mirrorlist
+    sudo reflector -c Bulgaria --save /etc/pacman.d/mirrorlist
     echo "Enabling the reflector service..."
     sudo systemctl enable --now reflector.timer
 
