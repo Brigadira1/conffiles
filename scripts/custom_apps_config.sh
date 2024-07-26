@@ -3,7 +3,7 @@
 echo "Configuring ./config directory ...."
 
 CURRENT_DIR=$HOME/repos/conffiles/scripts/
-CURRENT_CONFIG_DIR=$HOME/test_config
+CURRENT_CONFIG_DIR=$HOME/.config
 CONFIG_DIR_APPS="alacritty nvim rofi vifm picom qtile starship"
 IS_BACKUP_TAKEN=false
 
