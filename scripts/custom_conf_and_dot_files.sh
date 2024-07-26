@@ -25,7 +25,7 @@ backup_app_config() {
         mkdir -p "$CURRENT_CONFIG_DIR/backup"
     fi
     
-    if [ -d $CURRENT_CONFIG_DIR/$app_folder ]; then
+    if [[ -d $CURRENT_CONFIG_DIR/$app_folder && $IS_BACKUP_TAKEN == "false" ]]; then
         echo "Backing up $CURRENT_CONFIG_DIR/$app_folder ..."
         cp -rf "$CURRENT_CONFIG_DIR/$app_folder" "$CURRENT_CONFIG_DIR/backup"
     fi
@@ -73,7 +73,7 @@ handle_app_configs() {
             echo "You've specified invalid action: $action "
         fi
     done
-            
+    IS_BACKUP_TAKEN=true
 }
 
 configure_apps_dir
