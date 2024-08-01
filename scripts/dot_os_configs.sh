@@ -7,6 +7,8 @@ BASHRC="$HOME/.bashrc"
 XINITRC="$HOME/.xinitrc"
 XPROFILE="$HOME/.xprofile"
 XRESOURCES="$HOME/.Xresources"
+BASH_PROFILE="$HOME/.bash_profile"
+
 
 HOME_DOT_FILES[$BASHRC]=$(cat <<'EOF'
 alias ll='lsd -alF'
@@ -18,6 +20,13 @@ export XDG_CONFIG_HOME=/home/brigadira/.config
 export PATH="$XDG_CONFIG_HOME:$PATH"
 colorscript random
 eval "$(starship init bash)"
+EOF
+)
+
+HOME_DOT_FILES[$BASH_PROFILE]=$(cat <<'EOF'
+if [[ "$(tty)" == "/dev/tty1" ]]; then
+    startx
+fi
 EOF
 )
 
