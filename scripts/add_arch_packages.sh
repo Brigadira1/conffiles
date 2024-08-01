@@ -13,7 +13,7 @@ initialize_packages() {
     local themes_packages=" lxappearance arc-gtk-theme papirus-icon-theme-git"
     local shell_packages=" bash-completion lsd alacritty starship shell-color-scripts-git"
     local compress_packages=" gzip zip unzip"
-    local helper_packages=" libxft harfbuzz libxinerama network-manager-applet reflector"
+    local helper_packages=" libxft harfbuzz libxinerama network-manager-applet reflector man"
     local printer_packages=" cups hplip"
     local piperwire_packages=" alsa-utils pipewire pipewire-alsa pipewire-jack pipewire-pulse pipewire-module-xrdp-git sof-firmware"
     local python_packages=" python python-pip python-psutil"
