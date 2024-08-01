@@ -47,6 +47,7 @@ backup_dot_files() {
             cp -f "$file" "${file}.backup_$(date +%d%m%Y_%H%M%S)"
         else
             echo "$file doesn't exist. No backup was taken."
+            check_dot_files_existence $file
         fi
     done
 
@@ -87,7 +88,20 @@ add_all_lines_to_all_files() {
 
 }
 
+check_dot_files_existence() {
+
+    local file=$1
+
+    if grep -q ".xinitrc" "$file"; then
+        if [ ! -f "$file" ]; then
+            echo "Copying /etc/X11/xinit/xinitrc to $file"
+            cp -f /etc/X11/xinit/xinitrc ~/.xinitrc
+        fi
+    elif [ ! -f "$file" ]; then
+        echo "File $file doesn't exist. Creating it in home directory."
+        touch "$file"
+    fi
+        
+}
+
 add_all_lines_to_all_files
-
-
-
