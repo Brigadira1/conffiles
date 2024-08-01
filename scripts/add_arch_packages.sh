@@ -21,6 +21,7 @@ initialize_packages() {
     local core_packages=" vifm rofi picom nitrogen brave-bin nomachine"
     local qtile_packages=" qtile qtile-extras"
     local nvidia_packages=" nvidia nvidia-utils nvidia-settings nvtop"
+    # local lightdm_packages=" lightdm lightdm-webkit-theme-aether"
 
     PACKAGES+=$base_packages
     PACKAGES+=$xorg_packages
@@ -36,6 +37,7 @@ initialize_packages() {
     PACKAGES+=$core_packages
     PACKAGES+=$qtile_packages
     PACKAGES+=$nvidia_packages
+    # PACKAGES+=$lightdm_packages
 
     echo "All the packages were assembled: $PACKAGES"
 }
@@ -124,6 +126,9 @@ configure_services() {
 
     echo "Enabling Pipewire services..."
     systemctl --user --now enable pipewire pipewire-pulse wireplumber
+
+    # echo "Enabling Lightdm services..."
+    # systemctl enable --now lighdm.service
  
 }
 
