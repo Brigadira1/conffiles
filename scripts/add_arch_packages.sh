@@ -8,7 +8,7 @@ INSTALLER_OPTIONS=" --needed --noconfirm"
 initialize_packages() {
 
     local base_packages="base-devel glibc linux-headers"
-    local xorg_packages=" libx11 xorg-xrandr xorg-xinit xorg-xdpyinfo xrdp xorgxrdp xorgxrdp-nvidia"
+    local xorg_packages=" xorg-server libx11 xorg-xrandr xorg-xinit xorg-xdpyinfo xrdp xorgxrdp xorgxrdp-nvidia"
     local tools_packages=" qemu-guest-agent git lshw openssh openvpn pavucontrol plocate wget curl rsync nfs-utils cifs-utils htop net-tools tree less hwinfo qt5ctarchlinux-tweak-tool-git"
     local themes_packages=" lxappearance arc-gtk-theme papirus-icon-theme-git"
     local shell_packages=" bash-completion lsd alacritty starship shell-color-scripts-git"
