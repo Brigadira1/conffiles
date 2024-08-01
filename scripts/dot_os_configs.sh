@@ -92,8 +92,8 @@ check_dot_files_existence() {
 
     local file=$1
     echo "Processing file: $file"
-    
-    if grep -Fxq ".xinitrc" "$file"; then
+
+    if [[ $file == *".xinitrc"* ]]; then
         if [ ! -f "$file" ]; then
             echo "Copying /etc/X11/xinit/xinitrc to $file"
             cp -f /etc/X11/xinit/xinitrc ~/.xinitrc
