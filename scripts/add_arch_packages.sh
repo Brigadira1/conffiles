@@ -123,6 +123,7 @@ configure_services() {
 
     echo "Enabling NoMachine service..."
     sudo systemctl enable --now nxserver.service
+    sudo /etc/NX/nxserver --restart nxd
 
     echo "Enabling Pipewire services..."
     systemctl --user --now enable pipewire pipewire-pulse wireplumber
