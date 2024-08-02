@@ -50,10 +50,18 @@ HOME_DOT_FILES[$XRESOURCES]="Xft.dpi: 109"
 
 backup_dot_files() {
 
+    local backup_dir="$HOME/backup/dotfiles"
+    if [ ! -d "$backup_dir" ]; then
+        mkdir -p "$backup_dir"
+    fi
+
     for file in "${!HOME_DOT_FILES[@]}"; do
         if [ -f "$file" ]; then
             echo "$file file exists. Taking a backup..."
-            cp -f "$file" "${file}.backup_$(date +%d%m%Y_%H%M%S)"
+            local timestamp=$(date +%d%m%Y_%H%M%S)
+            cp -f "$file" "$file.backup_$timestamp"
+            echo "Moving $file.backup_$timestamp to $backup_dir..."
+            mv "$file.backup_$timestamp" "$backup_dir"
         else
             echo "$file doesn't exist. No backup was taken."
             check_dot_files_existence $file
