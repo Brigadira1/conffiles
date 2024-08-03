@@ -39,7 +39,8 @@ initialize_packages() {
     PACKAGES+=$nvidia_packages
     # PACKAGES+=$lightdm_packages
 
-    echo "All the packages were assembled: $PACKAGES"
+    echo
+    echo -e "All the packages were assembled:\n\n$PACKAGES"
 }
 
 install_all_packages() {
@@ -59,12 +60,14 @@ install_single_package() {
     local package=$1
 
     if is_official_package $package; then
+        echo
         echo "Installing $package with pacman"
         sudo pacman -S $INSTALLER_OPTIONS $package
     else
         if ! command -v yay &> /dev/null; then
             install_yay
         fi
+        echo
         echo "Installing $package with yay"
         yay -S $INSTALLER_OPTIONS $package
     fi
@@ -112,19 +115,24 @@ install_yay() {
 
 configure_services() {
 
+    echo
     echo "Enabling sshd service..."
     sudo systemctl enable --now sshd
 
+    echo
     echo "Enabling xrdp service..."
     sudo systemctl enable --now xrdp
 
+    echo
     echo "Enabling printer service..."
     sudo systemctl enable --now cups.service
 
+    echo
     echo "Enabling NoMachine service..."
     sudo systemctl enable --now nxserver.service
     sudo /etc/NX/nxserver --restart nxd
 
+    echo
     echo "Enabling Pipewire services..."
     systemctl --user --now enable pipewire pipewire-pulse wireplumber
 
