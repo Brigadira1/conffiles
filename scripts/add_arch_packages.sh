@@ -46,6 +46,11 @@ initialize_packages() {
 }
 
 install_all_packages() {
+    echo
+    echo "Upgrading the Arch OS first!!!"
+    sudo pacman -Syu
+    echo
+    echo "Arch OS successfully upgraded"
 
     if [ -z "$PACKAGES" ]; then
         echo "The packages list is empty: PACKAGES=$PACKAGES"
@@ -121,30 +126,30 @@ configure_services() {
 
     echo
     echo "Enabling sshd service..."
-    systemctl enable --now sshd
+    sudo systemctl enable --now sshd
 
     echo
     echo "Enabling xrdp service..."
-    systemctl enable --now xrdp
+    sudo systemctl enable --now xrdp
 
     echo
     echo "Enabling printer service..."
-    systemctl enable --now cups.service
+    sudo systemctl enable --now cups.service
 
     echo
     echo "Enabling NoMachine service..."
-    systemctl enable --now nxserver.service
-    /etc/NX/nxserver --restart nxd
+    sudo systemctl enable --now nxserver.service
+    sudo /etc/NX/nxserver --restart nxd
 
     echo
     echo "Enabling Pulseaudio services..."
     # systemctl --user --now enable pipewire pipewire-pulse wireplumber
-    systemctl enable --global pulseaudio
-    /usr/NX/scripts/setup/nxnode --audiosetup
+    sudo systemctl enable --global pulseaudio
+    sudo /usr/NX/scripts/setup/nxnode --audiosetup
 
     echo
     echo "Enabling Lightdm services..."
-    systemctl enable --now lighdm.service
+    sudo systemctl enable --now lightdm.service
  
 }
 
