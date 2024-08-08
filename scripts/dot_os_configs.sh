@@ -31,7 +31,7 @@ EOF
 )
 
 HOME_DOT_FILES[$XPROFILE]=$(cat <<'EOF'
-nitrogen --restore --set-zoom-fill &
+nitrogen --random --set-zoom-fill ~/.config/wallpapers/ &
 setxkbmap -model pc104 -layout us,bg -variant ,phonetic -option grp:win_space_toggle &
 # picom --config /home/brigadira/.config/picom/picom.conf -f &
 xrandr --output Virtual-1 --mode "2560x1440_60.00" --dpi 109 &
@@ -40,7 +40,7 @@ EOF
 )
 
 HOME_DOT_FILES[$XINITRC]=$(cat <<'EOF'
-nitrogen --restore --set-zoom-fill &
+nitrogen --random --set-zoom-fill ~/.config/wallpapers/ &
 setxkbmap -model pc104 -layout us,bg -variant ,phonetic -option grp:win_space_toggle &
 xrandr --output Virtual-1 --mode "2560x1440_60.00" --dpi 109 &
 picom -f &
