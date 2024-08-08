@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-set +e
 PACKAGES="" 
 INSTALLER_OPTIONS=" --needed --noconfirm" 
 
@@ -8,20 +7,22 @@ INSTALLER_OPTIONS=" --needed --noconfirm"
 initialize_packages() {
 
     local base_packages="base-devel glibc linux-headers"
-    local xorg_packages=" xorg-server libx11 xorg-xrandr xorg-xinit xorg-xdpyinfo xrdp xorgxrdp xorgxrdp-nvidia"
-    local tools_packages=" qemu-guest-agent git lshw openssh openvpn pavucontrol plocate wget curl rsync nfs-utils cifs-utils htop net-tools tree less hwinfo qt5ct archlinux-tweak-tool-git"
+    local xorg_packages=" xorg-server libx11 xorg-xrandr xorg-xinit xorg-xdpyinfo xrdp"
+    local tools_packages=" qemu-guest-agent git lshw openssh openvpn pavucontrol plocate wget curl rsync nfs-utils cifs-utils htop net-tools tree less hwinfo qt5ct"
     local themes_packages=" lxappearance arc-gtk-theme papirus-icon-theme-git"
     local shell_packages=" bash-completion lsd alacritty starship shell-color-scripts-git"
     local compress_packages=" gzip zip unzip"
     local helper_packages=" libxft harfbuzz libxinerama network-manager-applet reflector man"
     local printer_packages=" cups hplip"
-    local piperwire_packages=" alsa-utils pipewire pipewire-alsa pipewire-jack pipewire-pulse pipewire-module-xrdp-git sof-firmware"
+    # local piperwire_packages=" alsa-utils pipewire pipewire-alsa pipewire-jack pipewire-pulse pipewire-module-xrdp-git sof-firmware"
+    local pulseaudio=" pulseaudio"
     local python_packages=" python python-pip python-psutil"
     local neovim_packages=" neovim xclip"
     local core_packages=" vifm rofi picom nitrogen brave-bin nomachine"
     local qtile_packages=" qtile qtile-extras"
     local nvidia_packages=" nvidia nvidia-utils nvidia-settings nvtop"
-    # local lightdm_packages=" lightdm lightdm-webkit-theme-aether"
+    local basic_lightdm_packages=" lightdm-gtk-greeter lightdm"
+    # local advanced_lightdm_packages=" lightdm lightdm-webkit-theme-aether"
 
     PACKAGES+=$base_packages
     PACKAGES+=$xorg_packages
@@ -31,13 +32,14 @@ initialize_packages() {
     PACKAGES+=$compress_packages
     PACKAGES+=$helper_packages
     PACKAGES+=$printer_packages
-    PACKAGES+=$piperwire_packages
+    # PACKAGES+=$piperwire_packages
+    PACKAGES+=$pulseaudio
     PACKAGES+=$python_packages
     PACKAGES+=$neovim_packages
     PACKAGES+=$core_packages
     PACKAGES+=$qtile_packages
     PACKAGES+=$nvidia_packages
-    # PACKAGES+=$lightdm_packages
+    PACKAGES+=$basic_lightdm_packages
 
     echo
     echo -e "All the packages were assembled:\n\n$PACKAGES"
@@ -53,6 +55,8 @@ install_all_packages() {
     for s_package in $PACKAGES; do
         install_single_package "$s_package"
     done
+
+
 }
 
 install_single_package() {
@@ -117,27 +121,30 @@ configure_services() {
 
     echo
     echo "Enabling sshd service..."
-    sudo systemctl enable --now sshd
+    systemctl enable --now sshd
 
     echo
     echo "Enabling xrdp service..."
-    sudo systemctl enable --now xrdp
+    systemctl enable --now xrdp
 
     echo
     echo "Enabling printer service..."
-    sudo systemctl enable --now cups.service
+    systemctl enable --now cups.service
 
     echo
     echo "Enabling NoMachine service..."
-    sudo systemctl enable --now nxserver.service
-    sudo /etc/NX/nxserver --restart nxd
+    systemctl enable --now nxserver.service
+    /etc/NX/nxserver --restart nxd
 
     echo
-    echo "Enabling Pipewire services..."
-    systemctl --user --now enable pipewire pipewire-pulse wireplumber
+    echo "Enabling Pulseaudio services..."
+    # systemctl --user --now enable pipewire pipewire-pulse wireplumber
+    systemctl enable --global pulseaudio
+    /usr/NX/scripts/setup/nxnode --audiosetup
 
-    # echo "Enabling Lightdm services..."
-    # systemctl enable --now lighdm.service
+    echo
+    echo "Enabling Lightdm services..."
+    systemctl enable --now lighdm.service
  
 }
 
