@@ -46,12 +46,6 @@ initialize_packages() {
 }
 
 install_all_packages() {
-    echo
-    echo "Upgrading the Arch OS first!!!"
-    sudo pacman -Syu
-    echo
-    echo "Arch OS successfully upgraded"
-
     if [ -z "$PACKAGES" ]; then
         echo "The packages list is empty: PACKAGES=$PACKAGES"
         exit 1
@@ -169,7 +163,20 @@ configure_reflector() {
     sudo systemctl enable --now reflector.timer
 
 }
+
+upgrade_os() {
+
+    echo
+    echo "Upgrading the Arch OS first!!!"
+    sudo pacman -Syu
+    echo
+    echo "Arch OS successfully upgraded"
+
+}
+
+upgrade_os
 initialize_packages
+yay -R pipewire-pulse --noconfirm 
 install_all_packages
 configure_services
 install_hack_nerd
