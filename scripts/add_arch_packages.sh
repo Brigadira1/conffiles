@@ -176,7 +176,12 @@ upgrade_os() {
 
 upgrade_os
 initialize_packages
+
 yay -R pipewire-pulse --noconfirm 
+
 install_all_packages
+
+yay -U ../xorgxrdp/xorgxrdp-0.10.2-1-x86_64.pkg.tar.zst $INSTALLER_OPTIONS 
+
 configure_services
 install_hack_nerd
