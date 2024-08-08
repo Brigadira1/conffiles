@@ -92,7 +92,7 @@ install_yay() {
 
     # Install base-devel and git if not already installed
     echo "Installing base-devel and git..."
-    sudo pacman -S base-devel git $INSTALLER_OPTIONS :
+    sudo pacman -S base-devel git $INSTALLER_OPTIONS
 
     # Create a temporary directory
     (
@@ -134,6 +134,7 @@ configure_services() {
     echo "Enabling NoMachine service..."
     sudo systemctl enable --now nxserver.service
     sudo /etc/NX/nxserver --restart nxd
+    sudo /etc/NX/nxserver --startmode nxd automatic
 
     echo
     echo "Enabling Pulseaudio services..."
