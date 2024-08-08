@@ -8,16 +8,15 @@ blacklist_nouveau() {
     echo "Checking to see if nouveau driver is blacklisted..."
     if [ ! -f "$nouveau_blacklist_conf" ]; then
         echo "Nouveau driver is not blacklisted. Blacklisting it now..."
-        touch "$nouveau_blacklist_conf"
-
-        echo "Adding ${nouveau_options[0]}"
-        echo "${nouveau_options[0]}" >> "$nouveau_blacklist_conf"
-
-        echo "Adding ${nouveau_options[1]}"
-        echo "${nouveau_options[1]}" >> "$nouveau_blacklist_conf"
+        sudo touch "$nouveau_blacklist_conf"
+        echo "Adding '${nouveau_options[0]}' entry."
+        echo "${nouveau_options[0]}" | sudo tee -a "$nouveau_blacklist_conf" > /dev/null
+        echo "Adding '${nouveau_options[1]}' entry."
+        echo "${nouveau_options[1]}" | sudo tee -a "$nouveau_blacklist_conf" > /dev/null
         return 0
     fi
-    if search_strings_in_file "${nouveau_options[@]}" "$nouveau_blacklist_conf"; then
+    echo "$nouveau_blacklist_conf exists and will not be created."
+    if search_strings_in_file "$nouveau_blacklist_conf" "${nouveau_options[@]}"; then
         echo "Nouveau driver already blacklisted. Nothing to do...."
         return 0
     else
@@ -32,13 +31,15 @@ enable_drm_kernel_mode() {
     local drm_modeset=("options nvidia_drm modeset=1") 
     local modeset_conf="/etc/modprobe.d/modeset.conf"
 
-    echo "Setting nvidia_drm modeset to 1...."
+    echo "Checking to see whether /etc/modprobe.d/modeset.conf exists..."
     if [ ! -f "$modeset_conf" ]; then
-        touch "$modeset_conf"
-        echo "${drm_modeset[0]}" >> "$modeset_conf"
+        sudo touch "$modeset_conf"
+        echo "modeset.conf didn't exist and was created."
+        echo "Setting nvidia_drm modeset to 1...."
+        echo "${drm_modeset[0]}" | sudo tee -a "$modeset_conf" > /dev/null
         return 0
     fi
-    if search_strings_in_file "${drm_modeset[@]}" "$modeset_conf"; then
+    if search_strings_in_file "$modeset_conf" "${drm_modeset[*]}"; then
         echo "Nvidia_drm modeset=1 was already set."
         return 0
     else
@@ -50,19 +51,27 @@ enable_drm_kernel_mode() {
 
 search_strings_in_file() {
 
-    local list_of_strings=$1
-    local file=$2
+    local file=$1
+    shift
+    local list_of_strings=("$@")
 
     if [ ${#list_of_strings[@]} -gt 0 ]; then
         for string in "${list_of_strings[@]}"; do
             echo "Checking whether '$string' is contained in '$file'"
-            if ! grep -Fxq "$string" "$file"; then
+            if ! sudo grep -Fxq "$string" "$file"; then
                 echo "'$string' was not found in '$file'!"
                 return 1
             fi
+            echo "'$string' was found in '$file'."
         done
+    else
+        echo "The list of parameters is empty. Nothing to do..."
+        return 1
     fi
     echo "All strings were found in '$file'"
     return 0
 
 }
+
+blacklist_nouveau
+enable_drm_kernel_mode
