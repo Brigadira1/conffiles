@@ -175,14 +175,28 @@ upgrade_os() {
 
 }
 
+uninstalling_pipewire_pulse() {
+
+    echo
+    echo "Uninstalling pipewire-pulse package as it clashes with pulseaudio..."
+    yay -R pipewire-pulse --noconfirm 
+
+
+}
+
+install_custom_xorgxrdp() {
+
+    echo
+    echo "Installing the custom built xorgxrdp package..."
+    yay -U ../xorgxrdp/xorgxrdp-0.10.2-1-x86_64.pkg.tar.zst $INSTALLER_OPTIONS 
+
+}
+
+
 upgrade_os
 initialize_packages
-
-yay -R pipewire-pulse --noconfirm 
-
+uninstalling_pipewire_pulse
 install_all_packages
-
-yay -U ../xorgxrdp/xorgxrdp-0.10.2-1-x86_64.pkg.tar.zst $INSTALLER_OPTIONS 
-
+install_custom_xorgxrdp
 configure_services
 install_hack_nerd
