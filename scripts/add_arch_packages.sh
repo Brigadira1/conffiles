@@ -168,8 +168,8 @@ configure_reflector() {
 upgrade_os() {
 
     echo
-    echo "Upgrading the Arch OS first!!!"
-    sudo pacman -Syu
+    echo "Upgrading Arch OS to the latest version."
+    sudo pacman -Syu --noconfirm
     echo
     echo "Arch OS successfully upgraded"
 
