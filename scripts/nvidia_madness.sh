@@ -4,6 +4,7 @@ SINGLE_GPU_CONF_FILE="$HOME/repos/conffiles/X11/gpu-accelerated/20-nvidia.conf"
 XORG_CONF_FILE="$HOME/repos/conffiles/X11/gpu-accelerated/xorg.conf.newest"
 XORG_DIR="/etc/X11"
 XORG_CONF_DIR="/etc/X11/xorg.conf.d"
+NVIDIA_MODULES_FILE="/etc/mkinitcpio.conf"
 
 blacklist_nouveau() {
 
@@ -28,7 +29,7 @@ blacklist_nouveau() {
         echo "File $nouveau_blacklist_conf found but the entries in it are wrong!"
         return 1
     fi
-
+    regenerate_initramfs
 }
 
 enable_drm_kernel_mode() {
@@ -51,6 +52,7 @@ enable_drm_kernel_mode() {
         echo "File '$modeset_conf' found but the entries in it are wrong!"
         return 1
     fi
+    regenerate_initramfs
 
 }
 
@@ -99,6 +101,38 @@ copy_Xorg_configs() {
     sudo cp -f "$SINGLE_GPU_CONF_FILE" "$XORG_CONF_DIR"
 }
 
-# blacklist_nouveau
-# enable_drm_kernel_mode
+regenerate_initramfs() {
+
+    echo
+    echo "Regenerating initramfs.."
+    sudo mkinitcpio -P
+
+}
+
+load_nvidia_modules() {
+
+    local file="$NVIDIA_MODULES_FILE"
+
+    if [ ! -f "$file" ]; then
+        echo
+        echo "$file doesn't exist. Exiting..."
+        return 1
+    else
+        echo
+        echo "File $file exists. Taking a backup..."
+        sudo cp "$file" "/etc/mkinitcpio.conf.bak"
+    fi
+    if ! grep -q "^MODULES=\(.*\)" "$file"; then
+        echo
+        echo "MODULES=(...) entry was not found in $file!. Exiting.."
+        return 1
+    else
+        sudo sed -i 's/^MODULES=(.*)/MODULES=(nvidia nvidia_modeset nvidia_uvm nvidia_drm)/' "$file"
+    fi
+    regenerate_initramfs
+}
+blacklist_nouveau
+enable_drm_kernel_mode
 copy_Xorg_configs
+load_nvidia_modules $NVIDIA_MODULES_FILE
+sudo reboot now
