@@ -62,6 +62,10 @@ install_single_package() {
 
     local package=$1
 
+    if [ "${package}" = "pulseaudio" ]; then
+        uninstalling_pipewire_pulse
+    fi
+
     if is_official_package $package; then
         echo
         echo "Installing $package with pacman"
@@ -179,7 +183,7 @@ uninstalling_pipewire_pulse() {
 
     echo
     echo "Uninstalling pipewire-pulse package as it clashes with pulseaudio..."
-    yay -R pipewire-pulse --noconfirm 
+    yay -Rdd pipewire-pulse --noconfirm 
 
 
 }
