@@ -144,7 +144,7 @@ configure_services() {
 
     echo
     echo "Enabling Lightdm services..."
-    sudo systemctl enable --now lightdm.service
+    sudo systemctl enable lightdm.service
  
 }
 
