@@ -199,7 +199,6 @@ install_custom_xorgxrdp() {
 
 upgrade_os
 initialize_packages
-uninstalling_pipewire_pulse
 install_all_packages
 install_custom_xorgxrdp
 configure_services
