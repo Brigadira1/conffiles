@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+SINGLE_GPU_CONF_FILE="$HOME/repos/conffiles/X11/gpu-accelerated/20-nvidia.conf"
+XORG_CONF_FILE="$HOME/repos/conffiles/X11/gpu-accelerated/xorg.conf.newest"
+XORG_DIR="/etc/X11"
+XORG_CONF_DIR="/etc/X11/xorg.conf.d"
+
 blacklist_nouveau() {
 
     local nouveau_options=("blacklist nouveau" "options nouveau modeset=0")
@@ -73,5 +78,27 @@ search_strings_in_file() {
 
 }
 
-blacklist_nouveau
-enable_drm_kernel_mode
+copy_Xorg_configs() {
+
+    echo
+    echo "Handling $XORG_CONF_FILE..."
+    if [ -f "$XORG_DIR/xorg.conf" ]; then
+        echo "$XORG_DIR/xorg.conf exists. Backing it up..."
+        sudo cp -f "$XORG_DIR/xorg.conf" "$XORG_DIR/xorg.conf.bak"
+    fi
+    echo "Copying $XORG_CONF_FILE to $XORG_DIR/xorg.conf..."
+    sudo cp -f "$XORG_CONF_FILE" "$XORG_DIR/xorg.conf"
+
+    echo
+    echo "Handling $SINGLE_GPU_CONF_FILE...."
+    if [ -f "$XORG_CONF_DIR/20-nvidia.conf" ]; then
+        echo "$XORG_CONF_DIR/20-nvidia.conf exists. Backing it up..."
+        sudo cp -f "$XORG_CONF_DIR/20-nvidia.conf" "$XORG_CONF_DIR/20-nvidia.conf.bak"
+    fi
+    echo "Copying $SINGLE_GPU_CONF_FILE to $XORG_CONF_DIR directory..."
+    sudo cp -f "$SINGLE_GPU_CONF_FILE" "$XORG_CONF_DIR"
+}
+
+# blacklist_nouveau
+# enable_drm_kernel_mode
+copy_Xorg_configs
