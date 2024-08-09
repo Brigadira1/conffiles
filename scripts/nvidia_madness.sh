@@ -135,4 +135,4 @@ blacklist_nouveau
 enable_drm_kernel_mode
 copy_Xorg_configs
 load_nvidia_modules $NVIDIA_MODULES_FILE
-sudo reboot now
+sudo shutdown -h now
