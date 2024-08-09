@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+# Redirect stdout to log.out
+exec > >(tee -a log.out)
+
+# Redirect stderr to log.err
+exec 2> >(tee -a log.err >&2)
+
 ARCH_PACKAGES_SCRIPT=add_arch_packages.sh
 CUSTOM_CONF_SCRIPT=custom_apps_config.sh
 DOT_OS_CONFIGS=dot_os_configs.sh
