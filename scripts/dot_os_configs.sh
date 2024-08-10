@@ -1,13 +1,16 @@
 #!/usr/bin/env bash
 
 declare -A HOME_DOT_FILES
+declare -A HOME_DOT_FILES_REMOVE_LINES
 
+IS_BACKUP_TAKEN=0
 
 BASHRC="$HOME/.bashrc"
 XINITRC="$HOME/.xinitrc"
 XPROFILE="$HOME/.xprofile"
 XRESOURCES="$HOME/.Xresources"
 BASH_PROFILE="$HOME/.bash_profile"
+
 
 
 HOME_DOT_FILES[$BASHRC]=$(cat <<'EOF'
@@ -34,7 +37,7 @@ HOME_DOT_FILES[$XPROFILE]=$(cat <<'EOF'
 nitrogen --random --set-zoom-fill ~/.config/wallpapers/ &
 setxkbmap -model pc104 -layout us,bg -variant ,phonetic -option grp:win_space_toggle &
 # picom --config /home/brigadira/.config/picom/picom.conf -f &
-xrandr --output Virtual-1 --mode "2560x1440_60.00" --dpi 109 &
+# xrandr --output Virtual-1 --mode "2560x1440_60.00" --dpi 109 &
 picom -f &
 EOF
 )
@@ -42,11 +45,21 @@ EOF
 HOME_DOT_FILES[$XINITRC]=$(cat <<'EOF'
 nitrogen --random --set-zoom-fill ~/.config/wallpapers/ &
 setxkbmap -model pc104 -layout us,bg -variant ,phonetic -option grp:win_space_toggle &
-xrandr --output Virtual-1 --mode "2560x1440_60.00" --dpi 109 &
+# xrandr --output Virtual-1 --mode "2560x1440_60.00" --dpi 109 &
 picom -f &
 exec qtile start
 EOF
 )
+
+HOME_DOT_FILES_REMOVE_LINES[$XINITRC]=$(cat <<'EOF'
+twm &
+xclock -geometry 50x50-1+1 &
+xterm -geometry 80x50+494+51 &
+xterm -geometry 80x20+494-0 &
+exec xterm -geometry 80x66+0+0 -name login
+EOF
+)
+
 
 HOME_DOT_FILES[$XRESOURCES]="Xft.dpi: 109"
 
@@ -80,28 +93,46 @@ line_exists() {
 
 }
 
-add_line_to_file() {
+modify_single_line() {
 
     local file=$1
-    local lines="${HOME_DOT_FILES[$file]}"
+    local operation=$2
+    local lines=$3
 
     while IFS= read -r line; do
         if [ -n "$line" ]; then
-            if ! line_exists "$file" "$line"; then
-                echo "Adding: $line in $file"
-                echo "$line" >> "$file"
+            if [ "$operation" = "add" ]; then
+                if ! line_exists "$file" "$line"; then
+                    echo
+                    echo "Adding: $line in $file"
+                    echo "$line" >> "$file"
+                else
+                    echo "Skipping (already exists): $line in $file"
+                fi
+            elif [ "$operation" = "delete" ]; then
+                echo
+                echo "Removing '$line' from '$file'..."
+                sed -i "/$line/d" "$file"
             else
-                echo "Skipping (already exists): $line in $file"
+                echo "Invalid operation specified. Exiting..."
+                return 1
             fi
         fi
     done <<< "$lines"
 
 }
-add_all_lines_to_all_files() {
 
-    backup_dot_files
-    for file in "${!HOME_DOT_FILES[@]}"; do
-        add_line_to_file "$file"
+modify_all_lines_to_all_files() {
+
+    local operation=$1
+    local -n as_array=$2
+
+    if [ "$IS_BACKUP_TAKEN" -eq 0 ]; then
+        backup_dot_files
+        IS_BACKUP_TAKEN=1
+    fi
+    for file in "${!as_array[@]}"; do
+        modify_single_line "$file" "$operation" "${as_array[$file]}"
         echo "############################################################################################################################"
     done
 
@@ -124,4 +155,5 @@ check_dot_files_existence() {
         
 }
 
-add_all_lines_to_all_files
+modify_all_lines_to_all_files "add" HOME_DOT_FILES 
+modify_all_lines_to_all_files "delete" HOME_DOT_FILES_REMOVE_LINES 

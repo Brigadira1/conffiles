@@ -17,7 +17,7 @@ initialize_packages() {
     # local piperwire_packages=" alsa-utils pipewire pipewire-alsa pipewire-jack pipewire-pulse pipewire-module-xrdp-git sof-firmware"
     local pulseaudio=" pulseaudio"
     local python_packages=" python python-pip python-psutil"
-    local neovim_packages=" neovim xclip"
+    local neovim_packages=" neovim xclip nodejs npm"
     local core_packages=" vifm rofi picom nitrogen brave-bin nomachine"
     local qtile_packages=" qtile qtile-extras"
     local nvidia_packages=" nvidia nvidia-utils nvidia-settings nvtop"
