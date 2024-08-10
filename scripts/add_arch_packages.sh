@@ -144,6 +144,7 @@ configure_services() {
     echo "Enabling Pulseaudio services..."
     # systemctl --user --now enable pipewire pipewire-pulse wireplumber
     sudo systemctl enable --global pulseaudio
+    sudo systemctl enable --global pulseaudio.service pulseaudio.socket
     sudo /usr/NX/scripts/setup/nxnode --audiosetup
 
     echo
