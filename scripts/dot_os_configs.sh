@@ -103,14 +103,12 @@ modify_single_line() {
         if [ -n "$line" ]; then
             if [ "$operation" = "add" ]; then
                 if ! line_exists "$file" "$line"; then
-                    echo
                     echo "Adding: $line in $file"
                     echo "$line" >> "$file"
                 else
                     echo "Skipping (already exists): $line in $file"
                 fi
             elif [ "$operation" = "delete" ]; then
-                echo
                 echo "Removing '$line' from '$file'..."
                 sed -i "/$line/d" "$file"
             else
