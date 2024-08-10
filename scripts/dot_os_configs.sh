@@ -39,6 +39,7 @@ setxkbmap -model pc104 -layout us,bg -variant ,phonetic -option grp:win_space_to
 # picom --config /home/brigadira/.config/picom/picom.conf -f &
 # xrandr --output Virtual-1 --mode "2560x1440_60.00" --dpi 109 &
 picom -f &
+nvidia-settings -a CurrentMetaMode="DPY-2: nvidia-auto-select @2560x1440 +0+0 {ViewPortIn=2560x1440, ViewPortOut=3840x2160+0+0}"
 EOF
 )
 
