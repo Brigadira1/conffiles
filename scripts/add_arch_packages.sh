@@ -22,7 +22,7 @@ initialize_packages() {
     local qtile_packages=" qtile qtile-extras"
     local nvidia_packages=" nvidia nvidia-utils nvidia-settings nvtop"
     local common_packages=" vlc gimp libreoffice-fresh" 
-    local basic_lightdm_packages=" web-greeter lightdm-gtk-greeter lightdm"
+    local basic_lightdm_packages=" web-greeter web-greeter-theme-shikai lightdm-gtk-greeter lightdm"
     # local advanced_lightdm_packages=" lightdm lightdm-webkit-theme-aether"
 
     PACKAGES+=$base_packages
