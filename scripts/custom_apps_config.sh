@@ -83,5 +83,32 @@ handle_starship_conf() {
 
 }
 
+handle_qt5ct_env() {
+
+    local xsession_folder="/etc/X11/Xsession.d"
+
+    if [ ! -d "$xsession_folder" ]; then
+        echo
+        echo "Setting up Qt5ct. $xsession_folder folder is not present. Creating it..."
+        sudo mkdir -p "$xsession_folder" 
+    else
+        echo "'$xsession_folder' already exists.Nothing to do..."
+    fi
+    if [ ! -f "$xsession_folder"/100-qt5ct ]; then
+        echo "File 100-qt5ct doesn't exist. Creating it..."
+        sudo touch "$xsession_folder/100-qt5ct"
+    else
+        echo "'$xsession_folder/100-qt5ct' already exists. Nothing to do..."
+    fi
+    if ! sudo grep -Fxq "export QT_QPA_PLATFORMTHEME=qt5ct" "$xsession_folder/100-qt5ct"; then
+        echo "Setting up 'export QT_QPA_PLATFORMTHEME=qt5ct' in '$xsession_folder/100-qt5ct'"
+        echo "export QT_QPA_PLATFORMTHEME=qt5ct" | sudo tee -a "$xsession_folder/100-qt5ct" > /dev/null
+    else
+        echo "'export QT_QPA_PLATFORMTHEME=qt5ct' is already setup.Nothing to do..."
+    fi
+
+}
+
 configure_apps_dir
 handle_starship_conf
+handle_qt5ct_env

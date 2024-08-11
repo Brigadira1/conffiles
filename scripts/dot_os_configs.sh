@@ -21,6 +21,7 @@ alias vim='nvim'
 export EDITOR=nvim
 export XDG_CONFIG_HOME=/home/brigadira/.config
 export PATH="$XDG_CONFIG_HOME:$PATH"
+export QT_QPA_PLATFORMTHEME=qt5ct
 colorscript random
 eval "$(starship init bash)"
 EOF

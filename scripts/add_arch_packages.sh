@@ -21,7 +21,8 @@ initialize_packages() {
     local core_packages=" vifm rofi picom nitrogen brave-bin nomachine"
     local qtile_packages=" qtile qtile-extras"
     local nvidia_packages=" nvidia nvidia-utils nvidia-settings nvtop"
-    local basic_lightdm_packages=" lightdm-gtk-greeter lightdm"
+    local common_packages=" vlc gimp libreoffice-fresh" 
+    local basic_lightdm_packages=" web-greeter lightdm"
     # local advanced_lightdm_packages=" lightdm lightdm-webkit-theme-aether"
 
     PACKAGES+=$base_packages
@@ -39,6 +40,7 @@ initialize_packages() {
     PACKAGES+=$core_packages
     PACKAGES+=$qtile_packages
     PACKAGES+=$nvidia_packages
+    PACKAGES+=$common_packages
     PACKAGES+=$basic_lightdm_packages
 
     echo
