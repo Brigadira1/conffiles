@@ -9,7 +9,7 @@ initialize_packages() {
     local base_packages="base-devel glibc linux-headers"
     local xorg_packages=" xorg-server libx11 xorg-xrandr xorg-xinit xorg-xdpyinfo xrdp"
     local tools_packages=" qemu-guest-agent git lshw openssh openvpn pavucontrol plocate wget curl rsync nfs-utils cifs-utils htop net-tools tree less hwinfo qt5ct"
-    local themes_packages=" lxappearance arc-gtk-theme papirus-icon-theme-git"
+    local themes_packages=" lxappearance gtk-engine-murrine gnome-themes-extra arc-gtk-theme papirus-icon-theme-git"
     local shell_packages=" bash-completion lsd alacritty starship shell-color-scripts-git"
     local compress_packages=" gzip zip unzip"
     local helper_packages=" libxft harfbuzz libxinerama network-manager-applet reflector man"
