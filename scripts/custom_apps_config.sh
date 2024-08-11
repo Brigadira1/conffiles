@@ -109,6 +109,23 @@ handle_qt5ct_env() {
 
 }
 
+handle_gtk_2() {
+
+    local gtkrc=".gtkrc-2.0"
+    if [ -f "$HOME/$gtkrc" ]; then
+        echo "'$HOME/$gtkrc' exists. Taking a backup..."
+        mkdir -p "$CURRENT_CONFIG_DIR/backup"
+        cp "$HOME/$gtkrc" "$CURRENT_CONFIG_DIR/backup"
+    fi
+    (
+        cd ..
+        echo "Copying '$(pwd)/$gtkrc' to '$HOME/$gtkrc'"
+        cp "$(pwd)/$gtkrc" "$HOME/$gtkrc"
+    )
+
+}
+
 configure_apps_dir
 handle_starship_conf
 handle_qt5ct_env
+handle_gtk_2
