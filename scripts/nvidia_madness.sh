@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-SINGLE_GPU_CONF_FILE="$HOME/repos/conffiles/X11/gpu-accelerated/20-nvidia.conf"
-XORG_CONF_FILE="$HOME/repos/conffiles/X11/gpu-accelerated/xorg.conf.newest"
+SINGLE_GPU_CONF_FILE="$HOME/repos/conffiles/X11/gpu-accelerated/xorgconf/20-nvidia.conf"
+XORG_CONF_FILE="$HOME/repos/conffiles/X11/gpu-accelerated/xorgconf/xorg.conf.newest"
 XORG_DIR="/etc/X11"
 XORG_CONF_DIR="/etc/X11/xorg.conf.d"
 NVIDIA_MODULES_FILE="/etc/mkinitcpio.conf"
