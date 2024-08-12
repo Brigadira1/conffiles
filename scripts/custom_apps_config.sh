@@ -129,6 +129,7 @@ handle_lightdm_greeters() {
 
     local lightdm_conf="/etc/lightdm/lightdm.conf"
     local web_greeter_conf="/etc/lightdm/web-greeter.yml"
+    local nvidia_meta_mode_script="/home/brigadira/repos/conffiles/X11/gpu-accelerated/nvidia_metamode.sh"
 
     echo "Checking to see whether lightdm display manager is installed on the system..."
     if ! sudo pacman -Qi lightdm &> /dev/null; then
@@ -142,6 +143,7 @@ handle_lightdm_greeters() {
     fi
     echo "Setting up web-greeter to be the default lightdm greeter..."
     replace_line_in_file "#greeter-session=.*" "greeter-session=web-greeter" "$lightdm_conf"
+    replace_line_in_file "#display-setup-script=.*" "display-setup-script=$nvidia_meta_mode_script" "$lightdm_conf"
 
     if [ ! -f "$web_greeter_conf" ]; then
         echo "$web_greeter_conf doesn't exist. Exiting...."
