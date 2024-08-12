@@ -166,8 +166,8 @@ replace_line_in_file() {
 
 }
 
-# configure_apps_dir
-# handle_starship_conf
-# handle_qt5ct_env
-# handle_gtk_2
+configure_apps_dir
+handle_starship_conf
+handle_qt5ct_env
+handle_gtk_2
 handle_lightdm_greeters
