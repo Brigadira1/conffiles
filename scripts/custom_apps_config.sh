@@ -152,6 +152,7 @@ handle_lightdm_greeters() {
     echo "Setting up web-greeter shikai theme to be used..."
     replace_line_in_file "^[[:space:]]*background_images_dir:[[:space:]].*" "    background_images_dir: /usr/share/web-greeter/themes/shikai/assets/media/wallpapers/" "$web_greeter_conf"
     replace_line_in_file "^[[:space:]]*logo_image:[[:space:]].*" "    logo_image: /usr/share/web-greeter/themes/shikai/assets/media/logos/" "$web_greeter_conf"
+    replace_line_in_file "^[[:space:]]*theme:[[:space:]].*" "    theme: shikai" "$web_greeter_conf"
 
 }
 
