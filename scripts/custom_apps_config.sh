@@ -156,6 +156,23 @@ handle_lightdm_greeters() {
 
 }
 
+removing_grub_delay() {
+
+    local grub_config="/etc/default/grub"
+
+    echo "Removing the default GRUB menu during boot up, and changing the waiting time delay from 5 sec. to 0"
+    echo "Backing up the original grub config file..."
+    if [ -f "$grub_config" ]; then
+        echo "Taking backup of $grub_config..."
+        sudo cp -f "$grub_config" "${grub_config}.bak"
+    else
+        echo "No grub configuration file found. Exiting...."
+    fi
+    replace_line_in_file "^GRUB_TIMEOUT=.*" "GRUB_TIMEOUT=0" "$grub_config"
+    replace_line_in_file "^GRUB_TIMEOUT_STYLE=.*" "GRUB_TIMEOUT_STYLE=hidden" "$grub_config"
+
+}
+
 replace_line_in_file() {
 
     local original_line="$1"
@@ -172,3 +189,4 @@ handle_starship_conf
 handle_qt5ct_env
 handle_gtk_2
 handle_lightdm_greeters
+removing_grub_delay
