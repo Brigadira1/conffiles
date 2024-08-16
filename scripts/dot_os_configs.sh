@@ -18,11 +18,16 @@ alias ll='lsd -alF'
 alias la='lsd -A'
 alias ls='lsd -al'
 alias vim='nvim'
+
 export EDITOR=nvim
 export XDG_CONFIG_HOME=/home/brigadira/.config
 export PATH="$XDG_CONFIG_HOME:$PATH"
 export QT_QPA_PLATFORMTHEME=qt5ct
 export GTK_THEME=Arc-Dark:dark
+
+bind "set completion-ignore-case on"
+bind "set show-all-if-ambiguous on"
+
 colorscript random
 eval "$(starship init bash)"
 EOF
