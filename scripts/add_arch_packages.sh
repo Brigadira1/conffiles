@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
-PACKAGES="" 
-INSTALLER_OPTIONS=" --needed --noconfirm" 
-
+PACKAGES=""
+INSTALLER_OPTIONS=" --needed --noconfirm"
 
 initialize_packages() {
 
@@ -17,11 +16,11 @@ initialize_packages() {
     # local piperwire_packages=" alsa-utils pipewire pipewire-alsa pipewire-jack pipewire-pulse pipewire-module-xrdp-git sof-firmware"
     local pulseaudio=" pulseaudio"
     local python_packages=" python python-pip python-psutil"
-    local neovim_packages=" neovim xclip nodejs npm"
+    local neovim_packages=" neovim xclip ripgrep nodejs npm"
     local core_packages=" vifm rofi picom nitrogen brave-bin nomachine"
     local qtile_packages=" qtile qtile-extras"
     local nvidia_packages=" nvidia nvidia-utils nvidia-settings nvtop"
-    local common_packages=" vlc gimp libreoffice-fresh" 
+    local common_packages=" vlc gimp libreoffice-fresh"
     local basic_lightdm_packages=" web-greeter web-greeter-theme-shikai lightdm-gtk-greeter lightdm"
     # local advanced_lightdm_packages=" lightdm lightdm-webkit-theme-aether"
 
@@ -52,11 +51,10 @@ install_all_packages() {
         echo "The packages list is empty: PACKAGES=$PACKAGES"
         exit 1
     fi
-    
+
     for s_package in $PACKAGES; do
         install_single_package "$s_package"
     done
-
 
 }
 
@@ -73,7 +71,7 @@ install_single_package() {
         echo "Installing $package with pacman"
         sudo pacman -S $INSTALLER_OPTIONS $package
     else
-        if ! command -v yay &> /dev/null; then
+        if ! command -v yay &>/dev/null; then
             install_yay
         fi
         echo
@@ -86,7 +84,7 @@ is_official_package() {
 
     local package_name="$1"
 
-    if pacman -Si $package_name &> /dev/null; then
+    if pacman -Si $package_name &>/dev/null; then
         return 0
     else
         return 1
@@ -102,22 +100,22 @@ install_yay() {
 
     # Create a temporary directory
     (
-    temp_dir=$(mktemp -d)
-    cd "$temp_dir"
+        temp_dir=$(mktemp -d)
+        cd "$temp_dir"
 
-    # Download PKGBUILD
-    echo "Downloading yay PKGBUILD..."
-    curl -O https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=yay
+        # Download PKGBUILD
+        echo "Downloading yay PKGBUILD..."
+        curl -O https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=yay
 
-    # Build and install yay
-    echo "Building and installing yay..."
-    makepkg -si --noconfirm
+        # Build and install yay
+        echo "Building and installing yay..."
+        makepkg -si --noconfirm
 
-    # Clean up
-    cd
-    rm -rf "$temp_dir"
+        # Clean up
+        cd
+        rm -rf "$temp_dir"
 
-    echo "yay has been installed successfully!"
+        echo "yay has been installed successfully!"
     )
 
 }
@@ -152,14 +150,14 @@ configure_services() {
     echo
     echo "Enabling Lightdm services..."
     sudo systemctl enable lightdm.service
- 
+
 }
 
 install_hack_nerd() {
 
     echo "Starting installation of Hack Nerd font family..."
     sudo pacman -S $INSTALLER_OPTIONS ttf-hack-nerd
-    fc-cache -v 
+    fc-cache -v
 
 }
 
@@ -186,8 +184,7 @@ uninstalling_pipewire_pulse() {
 
     echo
     echo "Uninstalling pipewire-pulse package as it clashes with pulseaudio..."
-    yay -Rdd pipewire-pulse --noconfirm 
-
+    yay -Rdd pipewire-pulse --noconfirm
 
 }
 
@@ -195,10 +192,9 @@ install_custom_xorgxrdp() {
 
     echo
     echo "Installing the custom built xorgxrdp package..."
-    yay -U ../xorgxrdp/xorgxrdp-0.10.2-1-x86_64.pkg.tar.zst $INSTALLER_OPTIONS 
+    yay -U ../xorgxrdp/xorgxrdp-0.10.2-1-x86_64.pkg.tar.zst $INSTALLER_OPTIONS
 
 }
-
 
 upgrade_os
 initialize_packages
