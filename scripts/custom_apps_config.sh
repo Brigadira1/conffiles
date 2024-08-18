@@ -4,7 +4,7 @@ echo "Configuring ./config directory ...."
 
 CURRENT_DIR=$HOME/repos/conffiles/scripts/
 CURRENT_CONFIG_DIR=$HOME/.config
-CONFIG_DIR_APPS="alacritty NvChad/nvim rofi vifm qtile starship wallpapers gtk-3.0 gtk-4.0 qt5ct"
+CONFIG_DIR_APPS="alacritty NvChad_1/nvim rofi vifm qtile starship wallpapers gtk-3.0 gtk-4.0 qt5ct"
 IS_BACKUP_TAKEN=false
 
 configure_apps_dir() {
@@ -24,7 +24,7 @@ backup_app_config() {
         echo "Creating backup directory in $CURRENT_CONFIG_DIR/backup ..."
         mkdir -p "$CURRENT_CONFIG_DIR/backup"
     fi
-    
+
     if [[ -d $CURRENT_CONFIG_DIR/$app_folder && $IS_BACKUP_TAKEN == "false" ]]; then
         echo "Backing up $CURRENT_CONFIG_DIR/$app_folder ..."
         cp -rf "$CURRENT_CONFIG_DIR/$app_folder" "$CURRENT_CONFIG_DIR/backup"
@@ -32,12 +32,11 @@ backup_app_config() {
 
 }
 
-
 delete_old_config() {
 
     local app_folder=$1
     backup_app_config $app_folder
-    
+
     if [ -d $CURRENT_CONFIG_DIR/$app_folder ]; then
         echo "Deleting $CURRENT_CONFIG_DIR/$app_folder ..."
         rm -rf $CURRENT_CONFIG_DIR/$app_folder
@@ -90,7 +89,7 @@ handle_qt5ct_env() {
     if [ ! -d "$xsession_folder" ]; then
         echo
         echo "Setting up Qt5ct. $xsession_folder folder is not present. Creating it..."
-        sudo mkdir -p "$xsession_folder" 
+        sudo mkdir -p "$xsession_folder"
     else
         echo "'$xsession_folder' already exists.Nothing to do..."
     fi
@@ -102,7 +101,7 @@ handle_qt5ct_env() {
     fi
     if ! sudo grep -Fxq "export QT_QPA_PLATFORMTHEME=qt5ct" "$xsession_folder/100-qt5ct"; then
         echo "Setting up 'export QT_QPA_PLATFORMTHEME=qt5ct' in '$xsession_folder/100-qt5ct'"
-        echo "export QT_QPA_PLATFORMTHEME=qt5ct" | sudo tee -a "$xsession_folder/100-qt5ct" > /dev/null
+        echo "export QT_QPA_PLATFORMTHEME=qt5ct" | sudo tee -a "$xsession_folder/100-qt5ct" >/dev/null
     else
         echo "'export QT_QPA_PLATFORMTHEME=qt5ct' is already setup.Nothing to do..."
     fi
@@ -132,7 +131,7 @@ handle_lightdm_greeters() {
     local nvidia_meta_mode_script="/home/brigadira/repos/conffiles/X11/gpu-accelerated/nvidia_metamode.sh"
 
     echo "Checking to see whether lightdm display manager is installed on the system..."
-    if ! sudo pacman -Qi lightdm &> /dev/null; then
+    if ! sudo pacman -Qi lightdm &>/dev/null; then
         echo "Lightdm is not installed on the system. Skipping...."
         return 1
     fi
