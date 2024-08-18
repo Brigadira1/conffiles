@@ -50,6 +50,9 @@ return {
     },
     {
         "mfussenegger/nvim-dap",
+        config = function()
+            require("configs.nvim-dap").setup()
+        end,
     },
     {
         "theHamsta/nvim-dap-virtual-text",
