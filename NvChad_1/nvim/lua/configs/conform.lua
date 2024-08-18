@@ -12,6 +12,22 @@ local options = {
         toml = { "taplo" },
     },
 
+    formatters = {
+        black = {
+            prepend_args = {
+                "--fast",
+                "--line-length",
+                "80",
+            },
+        },
+        isort = {
+            prepend_args = {
+                "--profile",
+                "black",
+            },
+        },
+    },
+
     format_on_save = {
         -- These options will be passed to conform.format()
         timeout_ms = 500,

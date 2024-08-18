@@ -1,4 +1,4 @@
-require "nvchad.options"
+require("nvchad.options")
 
 -- add yours here!
 
@@ -70,20 +70,20 @@ o.jumpoptions = "view"
 o.splitkeep = "screen"
 
 -- Improve diff
-vim.opt.diffopt:append "linematch:60"
+vim.opt.diffopt:append("linematch:60")
 
 -- Smooth scrolling
 o.smoothscroll = true
 
 vim.g.clipboard = {
-  name = "xclip",
-  copy = {
-    ["+"] = "xclip -selection clipboard",
-    ["*"] = "xclip -selection clipboard",
-  },
-  paste = {
-    ["+"] = "xclip -selection clipboard -o",
-    ["*"] = "xclip -selection clipboard -o",
-  },
-  cache_enabled = 1,
+    name = "xclip",
+    copy = {
+        ["+"] = "xclip -selection clipboard",
+        ["*"] = "xclip -selection clipboard",
+    },
+    paste = {
+        ["+"] = "xclip -selection clipboard -o",
+        ["*"] = "xclip -selection clipboard -o",
+    },
+    cache_enabled = 1,
 }
