@@ -90,6 +90,12 @@ map("n", "<leader>gn", "<cmd>lua vim.diagnostic.goto_next()<CR>")
 map("n", "<leader>tr", "<cmd>lua vim.lsp.buf.document_symbol()<CR>")
 map("i", "<C-Space>", "<cmd>lua vim.lsp.buf.completion()<CR>")
 
+-- Run a python script
+map("n", "<leader>ri", function()
+    local file = vim.fn.expand("%:p")
+    vim.cmd("sp | terminal python " .. vim.fn.shellescape(file))
+end, { noremap = true, silent = true, desc = "Run Python script" })
+
 -- Debugging
 map("n", "<leader>bb", "<cmd>lua require'dap'.toggle_breakpoint()<cr>")
 map("n", "<leader>bc", "<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<cr>")
