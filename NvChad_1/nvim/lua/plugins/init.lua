@@ -14,7 +14,7 @@ return {
         "mfussenegger/nvim-lint",
         event = "VeryLazy",
         config = function()
-            require("configs.lint")
+            require("configs.nvim-lint")
         end,
     },
     {
@@ -39,7 +39,8 @@ return {
                 "css-lsp",
                 "prettier",
                 "pyright",
-                "mypy",
+                "flake8",
+                -- "mypy",
                 "black",
                 "debugpy",
                 "isort",
