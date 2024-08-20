@@ -3,7 +3,7 @@ import = [
   # "~/.config/alacritty/catppuccin-latte.toml"
   # "~/.config/alacritty/catppuccin-frappe.toml"
   # "~/.config/alacritty/catppuccin-macchiato.toml"
-  "~/.config/alacritty/catppuccin-mocha.toml"
+  "~/.config/alacritty/dracula.toml",
 ]
 
 [env]
@@ -117,11 +117,11 @@ mode = "~Alt"
 mods = "Shift"
 
 [scrolling]
-history = 5000
+history = 10000
 
 [window]
 dynamic_padding = false
-opacity = 1.00 
+opacity = 0.80
 title = "Alacritty"
 
 [window.class]
