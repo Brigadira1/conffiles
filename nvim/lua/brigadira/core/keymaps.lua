@@ -50,11 +50,22 @@ keymap.set("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Open current buffer
 --
 -- ------------------
 
+-- compiler.nvim
+keymap.set("n", "<leader>co", "<cmd>CompilerOpen<CR>", { desc = "Opens the compiler run menu" })
+keymap.set("n", "<leader>ct", "<cmd>CompilerToggleResults<CR>", { desc = "Toggles the compiler" })
+keymap.set("n", "<leader>cr", "<cmd>CompilerRedo<CR>", { desc = "Redos last action of the compiler" })
+
 -- nvim-tree
 keymap.set("n", "<leader>ee", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file explorer" }) -- toggle file explorer
 keymap.set("n", "<leader>ef", "<cmd>NvimTreeFindFileToggle<CR>", { desc = "Toggle file explorer on current file" }) -- toggle file explorer on current file
 keymap.set("n", "<leader>ec", "<cmd>NvimTreeCollapse<CR>", { desc = "Collapse file explorer" }) -- collapse file explorer
 keymap.set("n", "<leader>er", "<cmd>NvimTreeRefresh<CR>", { desc = "Refresh file explorer" }) -- refresh file explorer
+
+-- Run a python script
+keymap.set("n", "<leader>ri", function()
+	local file = vim.fn.expand("%:p")
+	vim.cmd("sp | terminal python " .. vim.fn.shellescape(file))
+end, { noremap = true, silent = true, desc = "Run Python script" })
 
 -- Set a vim motion to <Space> + / to comment the line under the cursor in normal mode
 keymap.set("n", "<leader>/", "<Plug>(comment_toggle_linewise_current)", { desc = "Comment Line" })
