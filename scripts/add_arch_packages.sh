@@ -17,7 +17,7 @@ initialize_packages() {
     local pulseaudio=" pulseaudio"
     local python_packages=" python python-pip python-psutil"
     local neovim_packages=" neovim xclip ripgrep nodejs npm"
-    local core_packages=" vifm rofi picom nitrogen brave-bin nomachine"
+    local core_packages=" vifm rofi picom nitrogen tmux brave-bin nomachine"
     local qtile_packages=" qtile qtile-extras"
     local nvidia_packages=" nvidia nvidia-utils nvidia-settings nvtop"
     local essential_packages=" vlc gimp libreoffice-fresh"
