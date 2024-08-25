@@ -161,6 +161,13 @@ install_hack_nerd() {
 
 }
 
+install_tmux_plugin_manager() {
+
+    echo "Installing the tmux plugin manager..."
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+}
+
 configure_reflector() {
 
     echo "Adding Bulgaria as the location for the mirror list of repositories..."
@@ -199,6 +206,7 @@ install_custom_xorgxrdp() {
 upgrade_os
 initialize_packages
 install_all_packages
+install_tmux_plugin_manager
 install_custom_xorgxrdp
 configure_services
 install_hack_nerd

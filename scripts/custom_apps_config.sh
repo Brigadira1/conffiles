@@ -82,6 +82,18 @@ handle_starship_conf() {
 
 }
 
+handle_tmux_conf() {
+
+    (
+        cd ..
+
+        echo "Copying $(pwd)/tmux/.tmux.conf into $HOME"
+        cp -rf "$(pwd)/tmux/.tmux.conf" "$HOME"
+
+    )
+    
+}
+
 handle_qt5ct_env() {
 
     local xsession_folder="/etc/X11/Xsession.d"
@@ -185,6 +197,7 @@ replace_line_in_file() {
 
 configure_apps_dir
 handle_starship_conf
+handle_tmux_conf
 handle_qt5ct_env
 handle_gtk_2
 handle_lightdm_greeters
