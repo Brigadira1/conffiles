@@ -33,7 +33,7 @@ keymap.set("n", "<leader>sh", "<C-w>s", { desc = "Split window horizontally" }) 
 keymap.set("n", "<leader>se", "<C-w>=", { desc = "Make splits equal size" }) -- split windows equal size
 keymap.set("n", "<leader>sx", "<cmd>close<CR>", { desc = "Close current split" }) -- close current split window
 keymap.set("n", "<leader>sj", "<C-w>-", { desc = "Make spllit window height shorter" }) -- make split window height shorter
-keymap.set("n", "<leader>sk", "<C-w>+", { desc = "Make split windows height talle" }) -- make split windows height taller
+keymap.set("n", "<leader>sk", "<C-w>+", { desc = "Make split windows height taller" }) -- make split windows height taller
 keymap.set("n", "<leader>sl", "<C-w>>5", { desc = "Make split windows width bigger" }) -- make split windows width bigger
 -- keymap.set("n", "<leader>sh", "<C-w><5", { desc = "Make split windows width smaller" }) -- make split windows width smaller
 
