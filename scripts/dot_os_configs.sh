@@ -24,6 +24,7 @@ export XDG_CONFIG_HOME=/home/brigadira/.config
 export PATH="$XDG_CONFIG_HOME:$PATH"
 export QT_QPA_PLATFORMTHEME=qt5ct
 export GTK_THEME=Arc-Dark:dark
+export STARSHIP_CONFIG=~/.config/starship/starship.toml
 
 bind "set completion-ignore-case on"
 bind "set show-all-if-ambiguous on"

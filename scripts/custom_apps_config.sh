@@ -75,13 +75,6 @@ handle_app_configs() {
     IS_BACKUP_TAKEN=true
 }
 
-handle_starship_conf() {
-
-    echo "Coping $CURRENT_CONFIG_DIR/starship/starship.toml into $CURRENT_CONFIG_DIR"
-    cp -rf "$CURRENT_CONFIG_DIR/starship/starship.toml" "$CURRENT_CONFIG_DIR/"
-
-}
-
 handle_qt5ct_env() {
 
     local xsession_folder="/etc/X11/Xsession.d"
@@ -184,7 +177,6 @@ replace_line_in_file() {
 }
 
 configure_apps_dir
-handle_starship_conf
 handle_qt5ct_env
 handle_gtk_2
 handle_lightdm_greeters
