@@ -4,7 +4,7 @@ echo "Configuring ./config directory ...."
 
 CURRENT_DIR=$HOME/repos/conffiles/scripts/
 CURRENT_CONFIG_DIR=$HOME/.config
-CONFIG_DIR_APPS="alacritty nvim rofi vifm qtile starship wallpapers gtk-3.0 gtk-4.0 qt5ct"
+CONFIG_DIR_APPS="alacritty nvim rofi vifm qtile starship wallpapers gtk-3.0 gtk-4.0 qt5ct tmux"
 IS_BACKUP_TAKEN=false
 
 configure_apps_dir() {
@@ -80,18 +80,6 @@ handle_starship_conf() {
     echo "Coping $CURRENT_CONFIG_DIR/starship/starship.toml into $CURRENT_CONFIG_DIR"
     cp -rf "$CURRENT_CONFIG_DIR/starship/starship.toml" "$CURRENT_CONFIG_DIR/"
 
-}
-
-handle_tmux_conf() {
-
-    (
-        cd ..
-
-        echo "Copying $(pwd)/tmux/.tmux.conf into $HOME"
-        cp -rf "$(pwd)/tmux/.tmux.conf" "$HOME"
-
-    )
-    
 }
 
 handle_qt5ct_env() {
@@ -197,7 +185,6 @@ replace_line_in_file() {
 
 configure_apps_dir
 handle_starship_conf
-handle_tmux_conf
 handle_qt5ct_env
 handle_gtk_2
 handle_lightdm_greeters
