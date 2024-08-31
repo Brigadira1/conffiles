@@ -18,6 +18,7 @@ alias ll='lsd -alF'
 alias la='lsd -A'
 alias ls='lsd -al'
 alias vim='nvim'
+alias cat='bat'
 
 export EDITOR=nvim
 export XDG_CONFIG_HOME=/home/brigadira/.config
