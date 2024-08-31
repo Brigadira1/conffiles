@@ -34,6 +34,7 @@ $swift\
 $nodejs\
 $python\
 $docker_context\
+$jobs\
 $cmd_duration\
 $line_break\
 $character"""
@@ -176,6 +177,12 @@ only_with_files = true
 detect_files = ["docker-compose.yml", "docker-compose.yaml", "Dockerfile"]
 detect_folders = []
 disabled = false
+
+[jobs]
+symbol = ' '
+style = 'bold yellow'
+number_threshold = 1
+format = '[$symbol]($style)'
 
 [cmd_duration]
 min_time = 4
