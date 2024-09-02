@@ -11,7 +11,7 @@ initialize_packages() {
     local themes_packages=" lxappearance gtk-engine-murrine gnome-themes-extra arc-gtk-theme papirus-icon-theme-git"
     local shell_packages=" bash-completion lsd alacritty starship shell-color-scripts-git"
     local compress_packages=" gzip zip unzip"
-    local helper_packages=" libxft harfbuzz libxinerama network-manager-applet reflector man"
+    local helper_packages=" libxft harfbuzz libxinerama network-manager-applet reflector man tldr"
     local printer_packages=" cups hplip"
     # local piperwire_packages=" alsa-utils pipewire pipewire-alsa pipewire-jack pipewire-pulse pipewire-module-xrdp-git sof-firmware"
     local pulseaudio=" pulseaudio"
@@ -170,6 +170,14 @@ install_tmux_plugin_manager() {
 
 }
 
+install_fzf-git_sh() {
+
+    echo "Installing fzf-gi.sh in the ~/repos folder"
+    mkdir -p "~/repos/"
+    git clone https://github.com/fzf-git.sh/fzf-git.sh ~/repos
+
+}
+
 configure_reflector() {
 
     echo "Adding Bulgaria as the location for the mirror list of repositories..."
@@ -209,6 +217,7 @@ upgrade_os
 initialize_packages
 install_all_packages
 install_tmux_plugin_manager
+install_fzf-git_sh
 install_custom_xorgxrdp
 configure_services
 install_hack_nerd
