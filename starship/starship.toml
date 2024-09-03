@@ -153,7 +153,7 @@ symbol = " "
 symbol = "ﯣ "
 
 [nodejs]
-format = "via [ Node.js $version](bold green) "
+format = " [ Node.js $version](bold green) "
 detect_files = ["package.json", ".node-version"]
 detect_folders = ["node_modules"]
 
@@ -169,7 +169,7 @@ version_format = "v${raw}"
 
 [docker_context]
 symbol = " "
-format = "via [$symbol$context]($style) "
+format = " [$symbol$context]($style) "
 style = "blue bold"
 only_with_files = true
 detect_files = ["docker-compose.yml", "docker-compose.yaml", "Dockerfile"]
