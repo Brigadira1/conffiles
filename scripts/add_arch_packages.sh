@@ -7,7 +7,7 @@ initialize_packages() {
 
     local base_packages="base-devel glibc linux-headers"
     local xorg_packages=" xorg-server libx11 xorg-xrandr xorg-xinit xorg-xdpyinfo xrdp"
-    local tools_packages=" qemu-guest-agent git lshw openssh openvpn pavucontrol plocate wget curl rsync nfs-utils cifs-utils htop net-tools tree less hwinfo qt5ct"
+    local tools_packages=" qemu-guest-agent git lshw openssh openvpn pavucontrol plocate wget curl rsync nfs-utils cifs-utils btop net-tools tree less hwinfo qt5ct"
     local themes_packages=" lxappearance gtk-engine-murrine gnome-themes-extra arc-gtk-theme papirus-icon-theme-git"
     local shell_packages=" bash-completion lsd alacritty starship shell-color-scripts-git"
     local compress_packages=" gzip zip unzip"
@@ -20,7 +20,7 @@ initialize_packages() {
     local core_packages=" yazi flameshot rofi picom nitrogen tmux brave-bin nomachine"
     local qtile_packages=" qtile qtile-extras"
     local nvidia_packages=" nvidia nvidia-utils nvidia-settings nvtop"
-    local devops_packages=" zoxide eza fd fzf bat jq yq jqp"
+    local devops_packages=" zoxide eza fd fzf bat jq yq jqp rmlint ncdu"
     local essential_packages=" vlc gimp libreoffice-fresh"
     local basic_lightdm_packages=" web-greeter web-greeter-theme-shikai lightdm-gtk-greeter lightdm"
     # local advanced_lightdm_packages=" lightdm lightdm-webkit-theme-aether"

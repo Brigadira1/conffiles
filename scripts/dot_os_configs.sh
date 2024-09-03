@@ -14,9 +14,8 @@ BASH_PROFILE="$HOME/.bash_profile"
 
 
 HOME_DOT_FILES[$BASHRC]=$(cat <<'EOF'
-alias ll='lsd -alF'
-alias la='lsd -A'
-alias ls="eza --icons=always"
+alias ll="eza --color=always --all --group-directories-first --long --git --icons=always"
+alias ls="eza --color=always --all --group-directories-first --long --no-time --git --icons=always"
 alias cd="z"
 
 alias vim='nvim'

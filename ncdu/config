@@ -1,0 +1,8 @@
+# Use non extended mode for faster performance
+--no-extended
+
+# Exclude .git directories
+--exclude .git
+
+# Use dark theme
+--color dark
