@@ -175,8 +175,7 @@ install_fzf-git_sh() {
 
     echo "Installing fzf-git.sh in the ~/repos folder"
     mkdir -p "~/repos/"
-    git clone https://github.com/fzf-git.sh/fzf-git.sh ~/repos/fzf-git.sh
-
+    git clone https://github.com/junegunn/fzf-git.sh ~/repos/fzf-git.sh
 }
 
 configure_reflector() {
