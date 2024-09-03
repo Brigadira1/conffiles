@@ -164,6 +164,11 @@ line_exists() {
 
     local file=$1
     local line=$2
+    # Mega brutal hack to add "}" although it may exists already
+    if [[ "$2" == "}" ]]; then
+        return 1
+    fi
+
     grep -Fxq "$2" "$file"
 
 }
