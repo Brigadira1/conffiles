@@ -1,4 +1,4 @@
-#!v/usr/bin/env bash
+#!/usr/bin/env bash
 
 PACKAGES=""
 INSTALLER_OPTIONS=" --needed --noconfirm"
