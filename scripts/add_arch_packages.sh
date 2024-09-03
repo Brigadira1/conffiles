@@ -163,14 +163,6 @@ install_hack_nerd() {
 
 }
 
-install_tmux_plugin_manager() {
-
-    echo "Installing the tmux plugin manager..."
-    mkdir -p ~/.config/tmux/plugins/tpm
-    git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
-
-}
-
 install_fzf-git_sh() {
 
     echo "Installing fzf-git.sh in the ~/repos folder"
@@ -216,7 +208,6 @@ install_custom_xorgxrdp() {
 upgrade_os
 initialize_packages
 install_all_packages
-install_tmux_plugin_manager
 install_fzf-git_sh
 install_custom_xorgxrdp
 configure_services

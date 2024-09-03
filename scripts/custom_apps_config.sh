@@ -176,10 +176,19 @@ replace_line_in_file() {
 
 }
 
+install_tmux_plugin_manager() {
+
+    echo "Installing the tmux plugin manager..."
+    mkdir -p ~/.config/tmux/plugins/tpm
+    git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
+
+}
+
 configure_apps_dir
 #Dirty quick hack. One needs to invoke bat in order to refresh its theme
 bat cache --build
 handle_qt5ct_env
 handle_gtk_2
 handle_lightdm_greeters
+install_tmux_plugin_manager
 removing_grub_delay
