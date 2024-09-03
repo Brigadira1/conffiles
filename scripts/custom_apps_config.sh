@@ -177,6 +177,8 @@ replace_line_in_file() {
 }
 
 configure_apps_dir
+#Dirty quick hack. One needs to invoke bat in order to refresh its theme
+bat cache --build
 handle_qt5ct_env
 handle_gtk_2
 handle_lightdm_greeters
