@@ -40,6 +40,7 @@ initialize_packages() {
     PACKAGES+=$core_packages
     PACKAGES+=$qtile_packages
     PACKAGES+=$nvidia_packages
+    PACKAGES+=$devops_packages
     PACKAGES+=$essential_packages
     PACKAGES+=$basic_lightdm_packages
 
@@ -172,9 +173,9 @@ install_tmux_plugin_manager() {
 
 install_fzf-git_sh() {
 
-    echo "Installing fzf-gi.sh in the ~/repos folder"
+    echo "Installing fzf-git.sh in the ~/repos folder"
     mkdir -p "~/repos/"
-    git clone https://github.com/fzf-git.sh/fzf-git.sh ~/repos
+    git clone https://github.com/fzf-git.sh/fzf-git.sh ~/repos/fzf-git.sh
 
 }
 
