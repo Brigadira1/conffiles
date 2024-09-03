@@ -166,7 +166,7 @@ install_hack_nerd() {
 install_tmux_plugin_manager() {
 
     echo "Installing the tmux plugin manager..."
-    mkdir -p "~/.config/tmux/plugins/tpm"
+    mkdir -p ~/.config/tmux/plugins/tpm
     git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
 
 }
