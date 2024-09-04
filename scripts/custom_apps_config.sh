@@ -4,7 +4,7 @@ echo "Configuring ./config directory ...."
 
 CURRENT_DIR=$HOME/repos/conffiles/scripts/
 CURRENT_CONFIG_DIR=$HOME/.config
-CONFIG_DIR_APPS="alacritty nvim rofi picom qtile starship wallpapers bat btop ncdu gtk-3.0 gtk-4.0 qt5ct tmux"
+CONFIG_DIR_APPS="alacritty nvim rofi picom qtile starship wallpapers bat btop ncdu nitrogen gtk-3.0 gtk-4.0 qt5ct tmux"
 IS_BACKUP_TAKEN=false
 
 configure_apps_dir() {
