@@ -20,7 +20,7 @@ initialize_packages() {
     local core_packages=" yazi flameshot rofi picom nitrogen tmux brave-bin nomachine"
     local qtile_packages=" qtile qtile-extras"
     local nvidia_packages=" nvidia nvidia-utils nvidia-settings nvtop"
-    local devops_packages=" zoxide eza fd fzf bat jq yq jqp rmlint ncdu speedtest-cli"
+    local devops_packages=" stow zoxide eza fd fzf bat jq yq jqp rmlint ncdu speedtest-cli"
     local essential_packages=" vlc gimp libreoffice-fresh obsidian"
     local basic_lightdm_packages=" web-greeter web-greeter-theme-shikai lightdm-gtk-greeter lightdm"
     # local advanced_lightdm_packages=" lightdm lightdm-webkit-theme-aether"
